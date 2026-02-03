@@ -1,0 +1,449 @@
+/* 1. ጠቅላላ ቅንጅቶች (Global Styles) */
+* {  
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+:root {   
+--primary-green:#28a745;
+--dark-card:#1a1a1a;
+
+}
+
+body {
+    line-height: 1.6;
+    color: white;
+    scroll-behavior: smooth;
+   background-color:#0d1117;
+overflow-y:auto !important;
+min-height: 100vh;
+height: auto;
+}
+
+/* 2. የራስጌ ክፍል (Header/Navbar) */
+header {
+   position: fixed !important;
+top: 0 !important;
+left: 0;
+width: 100%;
+height: 80px;
+background-color: #1a1a1a;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 5%;
+z-index: 2000;
+box-shadow: 0 2px 10px rgba(0,0, 0, 0.5);
+/*overflow-y: scroll;*/
+}
+
+
+.LOGO-CONTAINER {   
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header img {   
+    height: 60px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+header img:hover {
+    transform: scale(1.1);
+}
+
+.logo-text {   
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.blue-text {
+    color: #4dfce4;
+}
+nav {  
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+
+}
+
+nav ul {   
+    display: flex !important;
+    list-style: none;
+justify-content: flex-end;
+}
+
+nav ul li { 
+    margin-left: 20px;
+}
+
+nav ul li a { 
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {  
+    color: #4dfce4;
+}
+.hero {
+   position: sticky; 
+height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* እዚህ ጋር ምስሉንና ጥላውን እናስተካክላለን */
+    background: url('web\ developer5\ image.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll; 
+    color: white;
+display: flex;
+justify-content: center;
+overflow: hidden;
+
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem); 
+    margin-bottom: 300px;
+    font-weight: 800;
+/*background-color: #000;*/
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    color: #ccd6f6;
+font: bold;
+font-weight: 400;
+}
+/* የቁልፎቹ መያዣ (Container) */
+.hero-btns {
+    display: flex;
+    gap: 20px; /* በቁልፎቹ መካከል ክፍተት እንዲኖር */
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* ዋናው ቁልፍ (Explore Services) */
+.hero-btn {
+    padding: 12px 30px;
+    background-color: #00bcd4; /* አንተ የምትጠቀመው የሳይያን ቀለም */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px; /* ክብ እንዲሆን */
+    font-weight: 600;
+    transition: all 0.3s ease; /* ለውጡ ለስላሳ እንዲሆን */
+    border: 2px solid #00bcd4;
+}
+
+/* ሁለተኛው ቁልፍ (Contact Us) */
+.hero-btn.secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+/* ማውዝ (Mouse) ሲያርፍባቸው የሚፈጠር ለውጥ */
+.hero-btn:hover {
+    background-color: #008c9e;
+    border-color: #008c9e;
+    transform: translateY(-3px); /* ወደ ላይ ትንሽ ከፍ እንዲል */
+    box-shadow: 0 10px 20px rgba(0, 188, 212, 0.3); /* ጥላ እንዲኖረው */
+}
+
+.hero-btn.secondary:hover {
+    background-color: white;
+    color: black;
+}
+.services {  
+display: block ;
+margin-bottom: 60px ;
+padding: 120px 5% 60px;
+padding-top: 50px ;
+position:relative ;
+clear: both;
+
+}
+.services h2 {  
+color: white;
+font-size: 2.5rem;
+margin-bottom: 40px;
+letter-spacing: 2px;
+text-align: center;
+margin-top: 20px;
+width: 100%;
+
+}
+.services-container {
+    display: flex ;
+    flex-wrap: wrap ;           
+    justify-content: center;   
+    gap: 20px;                 
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #000;
+}
+.service-box {
+    flex: 0 1 250px;           
+   
+background: #1a1a1a;
+    
+border: 1px solid #333;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+max-width: 220px;
+    min-height: 250px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 10px;
+transition: all 0.4s ease-in-out;
+cursor: pointer;
+position: relative;
+overflow: hidden;
+
+
+}
+.service-box i {  
+font-size: 2.5rem;
+color: var(--primary-green);
+background: rgba(40, 167, 69, 0.1);
+padding: 20px;
+border-radius: 15px;
+margin-bottom: 20px;
+display: inline-block;
+
+}
+.service-box h3 {   
+color: var(--primary-green);
+margin-bottom: 15px;
+font-size: 1.5rem;
+color: #23d5ab;
+
+}
+.service-box p {   
+font-size: 0.95rem;
+line-height: 1.6;
+color: #ccc;
+}
+
+.service-box:hover {  
+transform: translateY(-10px);
+background: rgba(255, 255, 255, 0.2);
+border-color: var(--primary-green);
+box-shadow: 0 10px 30px rgba(40, 167,0.2);
+
+}
+
+
+.service-box:hover h3 {   
+color: #fff;
+transform: scale(1.1);
+transition: 0.3s
+}
+/* ለእያንዳንዱ አይኮን የሚሰጥ አጠቃላይ ዲዛይን */
+.service-box i {
+    display: inline-block !important; 
+        visibility: visible !important;  
+font-family: "Font Awesome 6 Free" !important;                                     
+    font-size: 50px;              
+    color: #23d5ab;              
+    margin-bottom: 20px;          
+    text-align: center;           
+    transition: transform 0.3s ease, color 0.3s ease; 
+font-weight: 900;
+}
+
+.service-box:hover i {
+    color: #ffffff;               
+    transform: scale(1.2) rotate(5deg); 
+}
+@media (max-width:768px) {
+header {
+    padding: 10px 20px;
+flex-direction: column;
+height: auto;
+}
+nav ul {
+gap: 10px;
+margin-top: 10px;
+flex-wrap: wrap;
+display: flex;
+justify-content: center;
+margin: 0 auto;
+
+}
+.services { 
+padding-top: 150px;
+
+}
+.service-box { 
+flex: 1 1 100%;
+max-width: 90%;
+} 
+}
+.hamburger {  
+cursor: pointer;
+display: block;
+margin-left: auto;
+
+
+}
+
+.hamburger span {  
+width: 25px;
+height: 3px;
+background-color: white;
+transition: 0.3s;
+
+}
+.bar {   
+display: flex;
+justify-content: center;
+
+width: 25px;
+height: 3px;
+margin: 5px auto;
+background-color: white;
+transition: 0.3s;
+}
+@media (max-width:768px) {
+.hamburger {  
+display: flex;
+justify-content: right;
+cursor: pointer;
+position: absolute;
+right: 20px;
+top: 50%;
+transform: translateY(-50%);
+
+}
+.logo {   
+order: 1;
+}
+nav ul {   
+display: none;
+flex-direction: column;
+position: absolute;
+top: 70px;
+right: 0;
+background: #1a1a1a;
+width: 100%;
+text-align: center;
+padding: 20px 0;
+
+}
+nav ul.active {  
+display: flex;
+}
+#nav-links {  
+position: absolute;
+top: 70px;
+right: 0;
+width: 100%;
+}
+#nav-links.active {    
+display: flex;
+}
+}
+
+.contact-section { 
+padding: 80px 5%;
+text-align: center;
+background-color:#0d1117;
+
+}
+.contact-container {  
+max-width: 600px;
+margin: 0 auto;
+background: #1a1a1a;
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 0 20px rgba(0,0, 0, 0.5);
+
+}
+.contact-container input,
+.contact-container textarea { 
+
+width: 100%;
+padding: 12px;
+margin: 10px 0;
+background: #222;
+border: 1px solid #333;
+color: white;
+border-radius: 8px;
+}
+.btn {   
+background-color: #00bcd0;
+color: white;
+padding: 12px 25px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+transition: 0.3s;
+
+}
+.btn:hover {  
+background-color:#0d1117;
+
+}
+.main-footer {
+    background-color: #0a0a0a; /* በጣም ጥቁር ዳራ */
+    color: #ffffff;
+    padding: 60px 0 20px;
+    border-top: 1px solid #1a1a1a;
+    margin-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* ለሞባይል ምላሽ እንዲሰጥ */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-info h3 {
+    color: #4CAF50; /* አረንጓዴ ማድመቂያ */
+    margin-bottom: 15px;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 24px;
+    margin-right: 20px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #4CAF50; /* ማውዝ ሲያርፍበት አረንጓዴ እንዲሆን */
+    transform: scale(1.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #1a1a1a;
+    font-size: 14px;
+    color: #777;
+}
+}
