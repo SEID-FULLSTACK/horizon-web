@@ -28,7 +28,7 @@ top: 0 ;
 left: 0;
 width: 100%;
 height: 80px;
-background-color: #010001e4;
+background-color:#003366;
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -119,7 +119,7 @@ justify-content: center;
     align-items: center;
     text-align: center;
     /* እዚህ ጋር ምስሉንና ጥላውን እናስተካክላለን */
-    background: url('web\ developer5\ image.jpg'); 
+    background: url('photo_2026-02-06_21-45-18.jpg'); 
     background-size: cover;
     background-position: center;
     background-attachment: scroll; 
@@ -151,6 +151,7 @@ font-weight: 400;
     gap: 20px; /* በቁልፎቹ መካከል ክፍተት እንዲኖር */
     justify-content: center;
     margin-top: 30px;
+padding: 10px;
 }
 
 /* ዋናው ቁልፍ (Explore Services) */
@@ -163,13 +164,16 @@ font-weight: 400;
     font-weight: 600;
     transition: all 0.3s ease; /* ለውጡ ለስላሳ እንዲሆን */
     border: 2px solid #00bcd4;
+margin-right: 20px;
+
 }
 
 /* ሁለተኛው ቁልፍ (Contact Us) */
 .hero-btn.secondary {
-    background-color: transparent;
+    background-color: #00bcd4;
     color: white;
     border: 2px solid white;
+
 }
 
 /* ማውዝ (Mouse) ሲያርፍባቸው የሚፈጠር ለውጥ */
@@ -191,6 +195,7 @@ padding: 120px 5% 60px;
 padding-top: 50px ;
 position:relative ;
 clear: both;
+background: url('photo.jpg'); 
 
 }
 .services h2 {  
@@ -203,7 +208,7 @@ margin-top: 20px;
 width: 100%;
 
 }
-.services-container {
+/*.services-container {
     display: flex ;
     flex-wrap: wrap ;           
     justify-content: center;   
@@ -211,29 +216,76 @@ width: 100%;
     width: 100%;
     margin: 0 auto;
     padding: 40px 20px;
-    background-color: #000;
+ background-color: #000;
 }
-.service-box {
-    flex: 0 1 250px;           
-   
-background: #1a1a1a;
-    
-border: 1px solid #333;
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
-max-width: 220px;
-    min-height: 250px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-margin: 10px;
-transition: all 0.4s ease-in-out;
-cursor: pointer;
-position: relative;
-overflow: hidden;
+*/
+/* የሳጥኖቹ መሰብሰቢያ (Container) */
+.services-grid {
+    display: grid;
+    /* በኮምፒውተር 3፣ በታብሌት 2፣ በስልክ 1 እንዲሆን ያደርጋል */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px;
+    padding: 50px 5%;
+    background-color: #060505d0; /* ቀለል ያለ የጀርባ ቀለም */
+}
 
+/* እያንዳንዱ ሳጥን (Box) */
+.service-box {
+    background: #080101cf;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    
+    /* ቁመቱን ቋሚ አታድርገው (ይህ ነው ዋናው ሚስጥር) */
+    height: auto; 
+    min-height: 250px; /* ቢያንስ መሆን ያለበት ቁመት */
+    
+    /* ጽሁፉ ከቦክሱ እንዳይወጣ ይከላከላል */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    box-sizing: border-box; /* padding በቦክሱ መጠን ውስጥ እንዲካተት ያደርጋል */
 }
+
+/*
+.service-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: #4364F7 solid; 
+}
+
+
+.service-box i {
+    font-size: 40px;
+    color: #4364F7;
+    margin-bottom: 20px;
+}
+
+
+.service-box h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+
+.service-box p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+   
+    word-wrap: break-word; 
+}
+*/
+
+
 .service-box i {  
 font-size: 2.5rem;
 color: var(--primary-green);
@@ -271,7 +323,7 @@ color: #fff;
 transform: scale(1.1);
 transition: 0.3s
 }
-/* ለእያንዳንዱ አይኮን የሚሰጥ አጠቃላይ ዲዛይን */
+
 .service-box i {
     display: inline-block !important; 
         visibility: visible !important;  
