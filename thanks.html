@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | Horizon Web Lab</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        .thanks-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('your-background.jpg'); /* ዋናው ባክግራውንድህ */
+            background-size: cover;
+            color: white;
+        }
+        .thanks-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid #00bcd4;
+            max-width: 500px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #00bcd4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background-color: #008c9e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="thanks-container">
+        <div class="thanks-card">
+            <h1 style="color: #00bcd4;">መልእክቱ ደርሶናል!</h1>
+            <p>ስላነጋገሩን እናመሰግናለን። በአጭር ጊዜ ውስጥ በኢሜይልወ እንመልስልወታልን።</p>
+            <a href="index.html" class="back-btn">ወደ ዋናው ገጽ ተመለስ</a>
+        </div>
+    </div>
+
+</body>
+</html>
