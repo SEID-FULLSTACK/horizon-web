@@ -119,7 +119,7 @@ justify-content: center;
     align-items: center;
     text-align: center;
     /* እዚህ ጋር ምስሉንና ጥላውን እናስተካክላለን */
-    background: url('photo_2026-02-06_21-45-18.jpg'); 
+    background: url('photo_2026-02-06_20-13-05.jpg'); 
     background-size: cover;
     background-position: center;
     background-attachment: scroll; 
@@ -144,6 +144,7 @@ overflow: hidden;
     color: #ccd6f6;
 font: bold;
 font-weight: 400;
+text-shadow: 2PX 2PX 4PX rgba(0, 0, 0, 0.8);
 }
 /* የቁልፎቹ መያዣ (Container) */
 .hero-btns {
@@ -189,13 +190,14 @@ margin-right: 20px;
     color: black;
 }
 .services {  
-display: block ;
+display: block;
 margin-bottom: 60px ;
 padding: 120px 5% 60px;
 padding-top: 50px ;
 position:relative ;
 clear: both;
-background: url('photo.jpg'); 
+/*background: url('photo.jpg'); */
+background-color: rgba(128, 128, 128, 0.004);
 
 }
 .services h2 {  
@@ -208,17 +210,7 @@ margin-top: 20px;
 width: 100%;
 
 }
-/*.services-container {
-    display: flex ;
-    flex-wrap: wrap ;           
-    justify-content: center;   
-    gap: 20px;                 
-    width: 100%;
-    margin: 0 auto;
-    padding: 40px 20px;
- background-color: #000;
-}
-*/
+
 /* የሳጥኖቹ መሰብሰቢያ (Container) */
 .services-grid {
     display: grid;
@@ -226,7 +218,7 @@ width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 30px;
     padding: 50px 5%;
-    background-color: #060505d0; /* ቀለል ያለ የጀርባ ቀለም */
+    /*background-color: #060505d0; */
 }
 
 /* እያንዳንዱ ሳጥን (Box) */
@@ -249,41 +241,8 @@ width: 100%;
     
     transition: all 0.3s ease;
     border: 1px solid #eee;
-    box-sizing: border-box; /* padding በቦክሱ መጠን ውስጥ እንዲካተት ያደርጋል */
+    box-sizing: border-box; 
 }
-
-/*
-.service-box:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border-color: #4364F7 solid; 
-}
-
-
-.service-box i {
-    font-size: 40px;
-    color: #4364F7;
-    margin-bottom: 20px;
-}
-
-
-.service-box h3 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-
-.service-box p {
-    font-size: 15px;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-   
-    word-wrap: break-word; 
-}
-*/
 
 
 .service-box i {  
@@ -341,46 +300,115 @@ font-weight: 900;
     transform: scale(1.2) rotate(5deg); 
 }
 
-.contact-section { 
-padding: 80px 5%;
-text-align: center;
-background-color:#0d1117;
 
+/* Order Section Styles */
+.order-section {
+    padding: 60px 20px;
+    background-color: #111; /* ጥቁር ዳራ */
+    color: white;
 }
-.contact-container {  
-max-width: 600px;
-margin: 0 auto;
-background: #1a1a1a;
-padding: 30px;
-border-radius: 15px;
-box-shadow: 0 0 20px rgba(0,0, 0, 0.5);
 
+.order-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #1c1c1c;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 188, 212, 0.1);
+    border: 1px solid #333;
 }
-.contact-container input,
-.contact-container textarea { 
 
-width: 100%;
-padding: 12px;
-margin: 10px 0;
-background: #222;
-border: 1px solid #333;
-color: white;
-border-radius: 8px;
+.order-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
-.btn {   
-background-color: #00bcd0;
-color: white;
-padding: 12px 25px;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-font-weight: bold;
-transition: 0.3s;
 
+.cyan-text {
+    color: #00bcd4;
 }
-.btn:hover {  
-background-color:#0d1117;
 
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #252525;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box; /* Padding ስፋቱን እንዳይጨምረው */
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: #00bcd4;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #00bcd4;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #008ba3;
+    color: white;
+    transform: translateY(-2px);
+}
+/* "Order Now" በተን ስታይል */
+.order-nav-btn {
+    background-color: #00bcd4; /* ሳይያን ቀለም */
+    color: #000 !important; /* ጽሁፉ ጥቁር እንዲሆን */
+    padding: 10px 20px;
+    border-radius: 25px; /* ክብ እንዲሆን */
+    font-weight: bold !important;
+    border: 2px solid #00bcd4;
+}
+
+
+.order-nav-btn:hover {
+    background-color: transparent;
+    color: #00bcd4 !important;
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.4);
+}
+
+/* ለሞባይል ሲሆን (Hamburger menu ውስጥ) */
+@media screen and (max-width: 768px) {
+    .order-nav-btn {
+        margin-top: 10px;
+        display: inline-block;
+        width: 80%; /* በሞባይል ሰፋ እንዲል */
+    }
+}
+/* ለሞባይል ስልክ ሲሆን */
+@media (max-width: 480px) {
+    .order-container {
+        padding: 20px;
+    }
+    
+    .order-header h2 {
+        font-size: 24px;
+    }
 }
 .main-footer {
     background-color: #0a0a0a; /* በጣም ጥቁር ዳራ */
