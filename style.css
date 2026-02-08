@@ -12,7 +12,8 @@
 }
 
 body {
-    line-height: 1.6;
+ font-family: 'Poppins', sans-serif;
+line-height: 1.6;
     color: white;
     scroll-behavior: smooth;
    background-color:#0d1117;
@@ -36,11 +37,7 @@ padding: 10px 40px;
 text-align: center;
 gap: 30px;
 
-
-/*box-shadow: 0 2px 10px rgba(0,0, 0, 0.5);*/
-/*overflow-y: scroll;*/
 }
-
 
 .LOGO-CONTAINER {   
     display: flex;
@@ -80,8 +77,6 @@ align-items: center;
 position: sticky;
 text-decoration: none;
 
-
-
 }
 
 nav ul {   
@@ -110,6 +105,7 @@ flex-direction: column;
 nav ul li a:hover {  
     color: #4dfce4;
 }
+
 .hero {
    
 height: 100vh;
@@ -118,7 +114,6 @@ height: 100vh;
 justify-content: center;
     align-items: center;
     text-align: center;
-    /* እዚህ ጋር ምስሉንና ጥላውን እናስተካክላለን */
     background: url('photo_2026-02-06_20-13-05.jpg'); 
     background-size: cover;
     background-position: center;
@@ -131,11 +126,13 @@ overflow: hidden;
 }
 
 .hero-content h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem); 
-    margin-bottom: 300px;
-    font-weight: 800;
-/*background-color: #000;*/
+    font-size: clamp(1.8rem, 5vw, 3.5rem); 
+    margin-bottom: 30px;
+    line-height: 1.2;
+width: 90%;
+margin-inline: auto;
 }
+
 
 .hero-content h4 {
     font-size: 1.2rem;
@@ -301,6 +298,278 @@ font-weight: 900;
 }
 
 
+/* Portfolio Styles */
+.portfolio-section {
+    padding: 100px 5%;
+    background-color: #0b0b0b;
+
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.portfolio-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid #333;
+}
+
+.portfolio-img-box {
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+.portfolio-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Hover Effect */
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 188, 212, 0.9); /* የሳይያን መጋረጃ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: center;
+    padding: 20px;
+}
+
+.portfolio-card:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-card:hover img {
+    transform: scale(1.1);
+}
+
+.overlay-content h3 {
+    color: #000;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.overlay-content p {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+/* አንድ ስራ ብቻ ሲኖር መካከለኛ ለማድረግ */
+.single-project {
+    display: flex;
+    justify-content: center;
+    min-width: 500px;/* የካርዱ ስፋት እንዳይለጠጥ */
+    margin: 50px auto 0; /* መካከለኛ ላይ ያደርገዋል */
+width: 100%;
+
+}
+
+/* ካርዱ ይበልጥ እንዲያምር */
+.portfolio-card {
+    width: 100%;
+    border: 2px solid #333;
+    transition: border-color 0.3s ease;
+}
+
+.portfolio-card:hover {
+    border-color: #00bcd4; /* ማውሱ ሲያርፍ ጠርዙ ይበራል */
+} 
+.view-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #000;
+    color: #00bcd4;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.view-btn:hover {
+    background: #fff;
+    color: #000;
+}
+/* About Section Styles */
+.about-section {
+    padding: 80px 5%;
+    background-color: #0b0b0b; /* ጥቁር ዳራ */
+    color: white;
+}
+
+.about-flex {
+    display: flex; /* ጎን ለጎን ለማድረግ */
+    align-items: center; /* ምስሉን እና ጽሁፉን እኩል መካከለኛ ቁመት ላይ ለማሰለፍ */
+    justify-content: space-between;
+    gap: 50px; /* በምስሉ እና በጽሁፉ መካከል ያለ ክፍተት */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-image-side {
+    flex: 1; /* ግማሽ ቦታ እንዲይዝ */
+}
+
+.about-img {
+    width: 100%;
+    border-radius: 15px; /* ጥርዙን ለስላሳ ለማድረግ */
+    box-shadow: 0 10px 30px rgba(0, 188, 212, 0.2); /* የሳይያን ጥላ */
+    object-fit: cover;
+}
+
+.about-text-side {
+    flex: 1.2; /* ከምስሉ ትንሽ ሰፋ ያለ ቦታ እንዲይዝ */
+}
+/* About Text Styling */
+.about-text-side {
+    padding-left: 20px;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+}
+
+/* እንግሊዘኛው ጎልቶ እንዲታይ እና ዘመናዊ እንዲሆን */
+.eng-text {
+    font-size: 1.1rem;
+    color: #00bcd4; /* ሳይያን ከለር */
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-family: 'Segoe UI', sans-serif; /* ንጹህ ፎንት */
+}
+
+/* አማርኛው ይበልጥ እንዲነበብ */
+.amh-text {
+    font-size: 1.2rem;
+    color: #ffffff;
+    line-height: 1.9; /* መስመሮቹ እንዲተነፍሱ */
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+/* የራዕያችን ሳጥን ይበልጥ እንዲለይ */
+.vision-box {
+    background: rgba(255, 255, 255, 0.05); /* በጣም ቀጭን ግልጽነት ያለው ዳራ */
+    backdrop-filter: blur(10px); /* ከበስተጀርባው ያለውን ምስል ትንሽ የሚያደበዝዝ (ዘመናዊ ስታይል) */
+    padding: 30px;
+    border-left: 5px solid #00bcd4;
+    border-radius: 10px;
+    margin-top: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* በጣም ስስ የሆነ የጠርዝ መስመር */
+}
+.vision-box p {
+    margin-bottom: 10px;
+}
+
+.vision-box strong {
+    color: #00bcd4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+/* ለሞባይል ስልክ ሲሆን አንዱ ከሌላው በታች እንዲሆን (Responsive) */
+@media screen and (max-width: 900px) {
+    .about-flex {
+        flex-direction: column; /* በሞባይል አንዱ ከሌላው በታች ይሆናል */
+        text-align: center;
+    }
+    
+    .about-image-side {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+.contact-section {
+    padding: 100px 5%;
+    background-color: #111;
+    text-align: center;
+}
+
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.whatsapp-card {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    transition: 0.3s;
+    max-width: 400px;
+    width: 100%;
+}
+
+.whatsapp-card i {
+    font-size: 4rem;
+    color: #25d366; /* የዋትስአፕ አረንጓዴ ቀለም */
+    margin-bottom: 20px;
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    background-color: #25d366;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    transition: 0.4s;
+}
+
+.contact-info h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.contact-info .eng-text {
+    color: #00bcd4;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.contact-info .amh-text {
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+/* ዋትስአፕ በተኑ ላይ አማርኛው ሲገባ እንዳይሰፋ */
+.whatsapp-btn {
+    font-size: 1rem;
+    padding: 15px 25px;
+}
+.whatsapp-btn:hover {
+    background-color: white;
+    color: #25d366;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    transform: translateY(-5px);
+}
+
 /* Order Section Styles */
 .order-section {
     padding: 60px 20px;
@@ -338,8 +607,7 @@ font-weight: 900;
     color: #ccc;
 }
 
-.form-group input, 
-.form-group select, 
+
 .form-group textarea {
     width: 100%;
     padding: 12px;
@@ -352,7 +620,7 @@ font-weight: 900;
     box-sizing: border-box; /* Padding ስፋቱን እንዳይጨምረው */
 }
 
-.form-group input:focus, 
+
 .form-group textarea:focus {
     border-color: #00bcd4;
 }
@@ -452,97 +720,94 @@ font-weight: 900;
     font-size: 14px;
     color: #777;
 }
-/* When the screen is 768px wide or less (Tablets/Phones) */
-@media (max-width: 768px) {
-    header {
-display: flex;
-       justify-content: space-between;
-        text-align: center;
-align-items: center;
-padding: 10px 20px;
-position: relative;
+/* 1. በኮምፒውተር ላይ ምልክቷ አትታይም */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* --- ለሞባይል ሜኑ የተስተካከለ ኮድ --- */
+@media screen and (max-width: 768px) {
+    /* 1. የሜኑ ምልክቱ (Hamburger) አቀማመጥ */
+    .menu-toggle {
+        display: block;
+        z-index: 2000; /* ከሁሉም በላይ እንዲሆን */
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        cursor: pointer;
+    }
+
+    .menu-toggle .bar {
+        width: 25px;
+        height: 3px;
+        background-color: #4dfce4; /* ምልክቱ እንዲታይ ደማቅ ቀለም */
+        margin: 5px;
+        display: block;
+        transition: 0.3s;
+    }
+
+    /* 2. ወደ ታች የሚወርደው ሜኑ ሳጥን */
+    .nav-links {
+        display: none; /* መጀመሪያ ይደበቃል */
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 280px; /* ስፋቱን ጨምረነዋል ጽሁፉ እንዳይሰበር */
+        height: 100vh;
+        background-color: #003366; /* የራስጌው (Header) አይነት ጥቁር ሰማያዊ ዳራ */
+        padding-top: 100px;
+        padding-left: 40px;
+        z-index: 1500;
+        box-shadow: -10px 0 20px rgba(0,0,0,0.5); /* ጥላ እንዲኖረው */
+        border-left: 2px solid #4dfce4; /* በቀኝ በኩል መስመር እንዲኖረው */
+    }
+
+    /* ሜኑው በጃቫስክሪፕት ሲከፈት */
+    .nav-links.active {
+        display: flex !important;
     }
 
     nav ul {
-        flex-direction: column; /* Stacks menu links vertically */
-        gap: 10px;
-        padding: 20px 0;
-display: none ;
+        flex-direction: column; /* ጽሁፎቹ በቁመት እንዲደረደሩ */
+        align-items: flex-start;
+        gap: 20px;
     }
 
-    .hero h1 {
-        font-size: 24px; /* Shrinks the 'Welcome' text for smaller screens */
+    nav ul li {
+        margin-left: 0;
+        width: 100%;
     }
-}
-.services-container {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    gap: 20px;
-}
-img {
-    max-width: 100%;
-    height: auto;
-}
-/* 1. Hide the checkbox and hamburger icon on Desktop */
-#menu-bar, .hamburger-icon {
-    display: none;
-}
 
-/* 2. Mobile Styles (Screens under 768px wide) */
-@media (max-width: 768px) {
-
-.signup-btn {   
-background-color: #aa1919;
-color: white;
-padding: 8px 15px;
-border-radius: 5px;
-text-decoration: none;
-font-size: 14px;
-font-weight: bold;
-
-}
-    .hamburger-icon {
-        display: block; /* Show the three-line icon */
+    nav ul li a {
+        font-size: 1.3rem;
         color: white;
-        font-size: 28px;
-        cursor: pointer;
-
+        display: block;
+        padding: 10px 0;
     }
 
-
- .navbar {
-        position: absolute;
-        top: 100%; /* Sits right below the purple bar */
-        left: 0;
-        right: 0;
-z-index: 1000;
-        background: #6a5acd; /* Match your header color */
-        display: none; /* Hidden by default */
+    /* 3. "Our Services" እንዳይታይ ያደረገውን ችግር መፍቻ */
+    .services {
+        display: block !important;
+        visibility: visible !important;
+        padding-top: 80px;
     }
-.hero-text { 
-position: relative;
-z-index: 1;
-
-}
-
-   .navbar ul {
-        flex-direction: column; /* Stack links vertically */
-        padding: 20px;
-
-    }
-
-    /* 3. The Toggle Logic: When checkbox is checked, show the navbar */
-    #menu-bar:checked ~ .navbar {
-        display: block ;
+    
+    .services-grid {
+        display: grid !important;
+        grid-template-columns: 1fr; /* በስልክ አንድ አንድ እንዲሆኑ */
     }
 }
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 1.8rem; /* Shrink text so it doesn't wrap awkwardly */
+
+/* 4. በኮምፒውተር ላይ ሜኑው ሁሌም እንዲታይ */
+@media screen and (min-width: 769px) {
+    .nav-links {
+        display: flex !important;
     }
-    .hero-buttons {
-        flex-direction: column; /* Stack 'Explore' and 'Contact' buttons */
-        gap: 10px;
+    .menu-toggle {
+        display: none;
     }
 }
