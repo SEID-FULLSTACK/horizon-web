@@ -849,3 +849,43 @@ padding-top: 50px;
     }
 }
 
+/* የ Hero በተኖች ማስተካከያ */
+    .home-content .btn-box {
+        display: flex;
+        justify-content: center; /* በተኖቹን መሃል ላይ ያደርጋል */
+        gap: 1.5rem; /* በበተኖቹ መካከል ክፍተት ይሰጣል */
+        flex-wrap: wrap; /* ስክሪኑ ሲጠበብ በተኖቹ አንዱ ከሌላው በታች እንዲወርዱ ያደርጋል */
+    }
+
+    .btn {
+        padding: 1rem 2.5rem; /* በስልክ ላይ መጠናቸው ትንሽ እንዲያንስ */
+        font-size: 1.4rem;
+    }
+@media (max-width: 768px) {
+    /* ሜኑው የሚቀመጥበት ሳጥን */
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 3%;
+        background: #1f242d; /* ጥቁር ዳራ (Background) */
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        display: none; /* መጀመሪያ እንዳይታይ */
+        z-index: 1000;
+    }
+
+    /* ሜኑው ሲነካ (Active ሲሆን) እንዲታይ */
+    .navbar.active {
+        display: block;
+    }
+
+    /* በሜኑው ውስጥ ያሉ ሊንኮች */
+    .navbar a {
+        display: block; /* አንዱ ከሌላው በታች እንዲሆን */
+        font-size: 2rem;
+        margin: 3rem 0;
+        color: #fff;
+        text-align: center;
+    }
+}
