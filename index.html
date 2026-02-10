@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horizon Web Tech</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -90,27 +90,22 @@
 </div>
 </section>
 
-<section id="portfolio" class="portfolio-section">
-    <div class="container">
-        <h2 class="section-title text-center">Featured <span class="cyan-text">Work</span> / የሰራናቸው <span class="cyan-text">ስራዎች</span></h2>
-        
-        <div class="portfolio-grid single-project"> <div class="portfolio-card" data-aos="zoom-in">
-                <div class="portfolio-img-box">
-                    <img src="tamagnbet.netlify.app_.png" alt="Tamagnbet Project">
-                    <div class="portfolio-overlay">
-                        <div class="overlay-content">
-                            <h3>Tamagn Bet</h3>
-                            <p>Real Estate & Housing Solutions</p>
-                            <p>የቤት አከራይ እና ሻጭ መድረክ</p>
-                            <a href="https://tamagnbet.netlify.app" target="_blank" class="view-btn">Visit Website</a>
-                        </div>
-                    </div>
-                </div>
+<section class="portfolio" id="portfolio">
+    <h2 class="heading">OUR WORKS /የሰራናቸው <span>ስራዎች</span></h2>
+
+    <div class="portfolio-container">
+        <div class="portfolio-box">
+            <img src="tamagnbet.netlify.app_.png" alt="Portfolio Image">
+            
+            <div class="portfolio-overlay">
+                <h4>Web Development</h4>
+                <p>Ethiopia's Trusted Property Hub - Modern Real Estate Platform.</p>
+                <a href="#"><i class='https://tamagnbet.netlify.app'></i> Visit Project</a>
             </div>
         </div>
     </div>
 </section>
-<section id="contact" class="contact-section">
+        <section id="contact" class="contact-section">
     <div class="container">
         <h2 class="section-title text-center">Get In <span class="cyan-text">Touch</span> / ያግኙን</h2>
         
@@ -161,45 +156,37 @@
         </div>
     </div>
 </section>
-<section id="order" class="order-section">
-    <div class="order-container">
-        <div class="order-header">
-            <h2>የዌብሳይት ስራ <span class="cyan-text">ይዘዙ</span></h2>
-            <p>ከታች ያለውን ፎርም በመሙላት ትዕዛዝዎን ያስገቡ። በፍጥነት እናነጋግርዎታለን።</p>
+<section class="order" id="order">
+    <h2 class="heading">አገልግሎት ይዘዙ / <span>Place Order</span></h2>
+ <form action="https://formsubmit.co/seidfirew2021@gmail.com" method="POST">
+    
+    <input type="hidden" name="_next" value="https://seid-fullstack.github.io/horizon-web/">
+    <form action="#">
+        <div class="input-box">
+            <input type="text" placeholder="ሙሉ ስም / Full Name" required>
+            <input type="email" placeholder="ኢሜል / Email Address" required>
         </div>
 
-        <form action="https://formspree.io/f/mpqjaorz" method="POST" class="order-form">
-            <div class="form-group">
-                <label for="name">ሙሉ ስም</label>
-                <input type="text" id="name" name="name" placeholder="ለምሳሌ፡ አበበ ካሳ" required>
-            </div>
+        <div class="input-box">
+            <input type="number" placeholder="ስልክ ቁጥር / Phone Number">
+            <select name="services" id="services">
+                <option value="" disabled selected>አገልግሎት ይምረጡ / Select Service</option>
+                <option value="web">ዌብሳይት ዝግጅት / Web Development</option>
+                <option value="design">ግራፊክስ ዲዛይን / Graphic Design</option>
+                <option value="seo">ማስተዋወቅ / Marketing & SEO</option>
+                <option value="other">ሌላ / Other</option>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="phone">ስልክ ቁጥር</label>
-                <input type="tel" id="phone" name="phone" placeholder="09..." required>
-            </div>
+        <div class="input-box">
+            <input type="text" placeholder="በጀት / Budget (e.g. 5000 ETB)">
+            <input type="text" placeholder="የሚጠናቀቅበት ጊዜ / Deadline (e.g. 2 weeks)">
+        </div>
 
-            <div class="form-group">
-                <label for="service">የሚፈልጉት አገልግሎት</label>
-                <select id="service" name="service">
-                    <option value="web-design">Web Design</option>
-                    <option value="web-dev">Web Development</option>
-                    <option value="seo">SEO Optimization</option>
-                    <option value="ecommerce">E-commerce Solution</option>
-                     <option value="APP-Dev">App Development</option>
-                    <option value="Tech">Tech support</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="message">ተጨማሪ መግለጫ</label>
-                <textarea id="message" name="message" rows="4" placeholder="የሚፈልጉትን ስራ እዚህ ይግለጹ..."></textarea>
-            </div>
-
-            <input type="hidden" name="_next" value="thanks.html">
-            <button type="submit" class="submit-btn">ትዕዛዝ ያስገቡ</button>
-        </form>
-    </div>
+        <textarea name="details" id="details" cols="30" rows="8" placeholder="ስለ ስራው ዝርዝር መረጃ / Project Details..."></textarea>
+        
+        <input type="submit" value="ትዕዛዙን አረጋግጥ / Confirm Order" class="btn">
+    </form>
 </section>
 <footer class="main-footer">
     <div class="footer-container">
@@ -218,7 +205,7 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2026 Horizon Web Lab. All Rights Reserved.</p>
+        <p>&copy; 2026 Horizon Web Tech. All Rights Reserved.</p>
     </div>
 </footer>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
