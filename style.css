@@ -889,3 +889,40 @@ padding-top: 50px;
         text-align: center;
     }
 }
+@media (max-width: 768px) {
+    /* 1. ሜኑው (Navbar) ከጽሁፍ ጋር እንዳይቀላቀል ዳራ መስጠት */
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 3%;
+        background: #081b29; /* ጥቁር ሰማያዊ ዳራ */
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        display: none; /* በጃቫ ስክሪፕት እስኪከፈት ተደብቆ ይቆያል */
+        z-index: 100;
+    }
+
+    .navbar.active {
+        display: block; /* Toggle ሲደረግ እንዲታይ */
+    }
+
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+        text-align: center;
+    }
+
+    /* 2. የተደራረቡትን በተኖች (Buttons) ማስተካከያ */
+    .btn-box {
+        display: flex;
+        flex-direction: column; /* በተኖቹ አንዱ ከሌላው በታች እንዲሆኑ */
+        align-items: center;
+        gap: 2rem; /* በመካከላቸው ክፍተት ይሰጣል */
+    }
+
+    .btn {
+        width: 80%; /* በስልክ ስክሪን ላይ በተኖቹ ሰፋ እንዲሉ */
+    }
+}
