@@ -817,4 +817,35 @@ padding-top: 50px;
     }
 
 }
+/* --- Mobile Responsive Settings (መጨረሻ ላይ የሚቀመጥ) --- */
+
+@media (max-width: 768px) {
+    html {
+        font-size: 55%; /* መጠኑን ለስልክ ያሳንሳል */
+    }
+
+    body {
+        overflow-x: hidden; /* ወደ ጎን መለጠጥን ያቆማል */
+    }
+
+    /* ርዕሶችን ለስልክ ማስተካከል */
+    .home-content h1 {
+        font-size: 3rem;
+    }
+
+    .heading {
+        font-size: 3.2rem;
+    }
+
+    /* ሜኑው በስልክ ፊት ለፊት እንዲመጣ */
+    #menu-icon {
+        display: block;
+    }
+
+    /* ፎርሙን ለስልክ ማመጣጠን */
+    .order form .input-box input, 
+    .order form .input-box select {
+        width: 100%;
+    }
+}
 
