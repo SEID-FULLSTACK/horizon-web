@@ -1,44 +1,47 @@
 /* 1. ጠቅላላ ቅንጅቶች (Global Styles) */
-:root {   
-    --primary-cyan: #00bcd4;
-    --primary-green: #28a745;
-    --dark-bg: #0d1117;
-    --header-bg: #003366;
-    --card-bg: #1a1a1a;
-}
-
 * {  
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif; /* ለአማርኛም ለኢንግሊዝኛም የተመቸ */
 }
 
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+}
+
+:root {   
+    --primary-green: #28a745;
+    --primary-cyan: #00bcd4;
+    --dark-bg: #0d1117;
+    --dark-card: #1a1a1a;
 }
 
 body {
-    background-color: var(--dark-bg);
-    color: white;
     line-height: 1.6;
+    color: white;
+    scroll-behavior: smooth;
+    background-color: var(--dark-bg);
+    min-height: 100vh;
 }
 
 h1, h2, h4 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
+    letter-spacing: 1px;
 }
 
-/* 2. Header & Navigation */
+/* 2. የራስጌ ክፍል (Header/Navbar) */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 80px;
-    background-color: var(--header-bg);
+    background-color: #003366;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,33 +49,31 @@ header {
     z-index: 1000;
 }
 
-.LOGO-CONTAINER {
+.LOGO-CONTAINER {   
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-header img {
+header img {   
     height: 60px;
     border-radius: 50%;
-    transition: 0.3s;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-}
+header img:hover { transform: scale(1.1); }
 
+.logo-text { font-size: 1.5rem; font-weight: bold; color: white; }
 .blue-text { color: #4dfce4; }
 
-nav ul {
+nav ul {   
     display: flex;
-    list-style: none;
     gap: 29px;
+    list-style: none;
 }
 
-nav ul li a {
+nav ul li a { 
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -81,31 +82,28 @@ nav ul li a {
 
 nav ul li a:hover { color: #4dfce4; }
 
-.menu-toggle { display: none; }
-
 /* 3. Hero Section */
 .hero {
     height: 100vh;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('photo_2026-02-06_20-13-05.jpg');
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('photo_2026-02-06_20-13-05.jpg'); 
     background-size: cover;
     background-position: center;
+    color: white;
 }
 
 .hero-content h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 5vw, 3.5rem); 
+    margin-bottom: 30px;
 }
 
 .hero-btns {
     display: flex;
     gap: 20px;
     justify-content: center;
-    margin-top: 30px;
 }
 
 .hero-btn {
@@ -121,20 +119,12 @@ nav ul li a:hover { color: #4dfce4; }
 }
 
 .hero-btn.secondary {
-    background: transparent;
-    border-color: white;
-}
-
-.hero-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 188, 212, 0.3);
+    background-color: transparent;
+    border: 2px solid white;
 }
 
 /* 4. Services Section */
-.services {
-    padding: 100px 5%;
-    text-align: center;
-}
+.services { padding: 80px 5%; text-align: center; }
 
 .services-grid {
     display: grid;
@@ -147,13 +137,8 @@ nav ul li a:hover { color: #4dfce4; }
     background: #080101cf;
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid #333;
+    border: 1px solid #eee;
     transition: 0.3s;
-}
-
-.service-box:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-green);
 }
 
 .service-box i {
@@ -163,149 +148,83 @@ nav ul li a:hover { color: #4dfce4; }
 }
 
 /* 5. Portfolio Section */
-.portfolio {
-    padding: 100px 10%;
-    background: #0b0b0b;
-}
-
-.heading {
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.heading span { color: #0ef; }
-
+.portfolio { padding: 80px 10%; background: #0b0b0b; }
 .portfolio-box {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    height: 450px;
-    max-width: 900px;
-    margin: 0 auto;
+    height: 500px;
 }
-
-.portfolio-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .portfolio-overlay {
     position: absolute;
     bottom: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.2), #0ef);
+    background: linear-gradient(rgba(0,0,0,0.1), #0ef);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transform: translateY(100%);
-    transition: 0.5s;
-    color: #1f242d;
-    padding: 2rem;
+    transition: .5s ease;
 }
-
 .portfolio-box:hover .portfolio-overlay { transform: translateY(0); }
 
 /* 6. Contact & Order Section */
-.order { padding: 100px 10%; background: #1f242d; }
-
-.order form .input-box {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.order form input, .order form select, .order form textarea {
-    width: 48%;
-    padding: 1.5rem;
-    background: #323946;
-    border: 2px solid transparent;
-    color: white;
-    border-radius: 10px;
-    margin: 1rem 0;
-}
-
-.order form textarea { width: 100%; }
+.order { background: #1f242d; padding: 100px 10%; text-align: center; }
+.order form .input-box { display: flex; justify-content: space-between; flex-wrap: wrap; }
+.order form input, .order form select { width: 48%; padding: 1.5rem; background: #323946; color: white; border-radius: 1rem; margin: 1rem 0; border: none; }
+.order form textarea { width: 100%; padding: 1.5rem; background: #323946; color: white; border-radius: 1rem; }
 
 .btn {
     display: inline-block;
     padding: 1.5rem 4rem;
     background: #0ef;
     border-radius: 4rem;
+    font-size: 1.6rem;
     color: #1f242d;
     font-weight: 700;
-    border: none;
     cursor: pointer;
-    transition: 0.3s;
+    border: none;
+    transition: .5s ease;
 }
 
 /* 7. Footer */
-.main-footer {
-    padding: 60px 0 20px;
-    background: #0a0a0a;
-    text-align: center;
-}
+.main-footer { background-color: #0a0a0a; padding: 60px 0 20px; text-align: center; }
 
-/* ===================================================
-   8. ALL MOBILE RESPONSIVE SETTINGS (CLEANED)
-   =================================================== */
+/* ==========================================
+   8. የጸዳ የሞባይል ማስተካከያ (Single Media Query)
+   ========================================== */
 @media screen and (max-width: 768px) {
-    /* Font Size adjustment */
-    html { font-size: 60%; }
+    html { font-size: 55%; }
 
-    /* Header & Menu Toggle */
-    header { padding: 0 20px; }
+    /* Header & Menu */
+    header { padding: 10px 20px; }
+    .menu-toggle { display: block; position: absolute; right: 25px; top: 25px; }
     
-    .menu-toggle {
-        display: block;
-        z-index: 2000;
-    }
-
-    .menu-toggle .bar {
-        width: 25px;
-        height: 3px;
-        background: #4dfce4;
-        margin: 5px;
-        display: block;
-    }
-
-    /* Mobile Navbar (ከላይ የተሰበሰበ) */
     nav ul {
-        display: none; /* በጃቫስክሪፕት .active ሲሆን ይከፈታል */
+        display: none; /* በ JS .active ሲሆን ይከፈታል */
         flex-direction: column;
         position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 51, 102, 0.98);
-        padding: 30px;
-        text-align: center;
-        border-bottom: 2px solid #0ef;
+        top: 80px; left: 0; width: 100%;
+        background-color: #081b29;
+        padding: 20px;
+        z-index: 1000;
     }
-
     nav ul.active { display: flex; }
 
-    nav ul li { margin: 15px 0; }
-
-    /* Hero Buttons (መደራረብን ይከላከላል) */
-    .hero-btns {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .hero-btn {
-        width: 80%;
-        font-size: 1.4rem !important; /* Font መጠን እዚህ ጋር ተቀንሷል */
+    /* Hero & Buttons */
+    .hero { padding-top: 100px; }
+    .hero-btns { flex-direction: column; align-items: center; gap: 15px; }
+    .hero-btn { 
+        width: 80%; 
+        font-size: 1.3rem !important; /* የፈለግከው የፎንት ቅነሳ እዚህ አለ */
         padding: 10px 20px;
+        margin-right: 0;
     }
 
-    /* Section adjustments */
-    .hero-content h1 { font-size: 2.8rem; }
-    .portfolio-box { height: 300px; }
-    
-    .order form input, .order form select {
-        width: 100%;
-    }
+    /* About & Portfolio */
+    .about-flex { flex-direction: column; text-align: center; }
+    .portfolio-box { height: 350px; }
+
+    /* Order Form */
+    .order form input, .order form select { width: 100%; }
 }
