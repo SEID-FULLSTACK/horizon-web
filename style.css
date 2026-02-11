@@ -656,3 +656,19 @@ font-weight: 600;
         grid-template-columns: 1fr; /* በስልክ አንድ አንድ እንዲሆኑ */
     }
 
+/* ስክሪኑ ከ 768px በታች ሲሆን (ለስልኮች) */
+@media (max-width: 768px) {
+    .services-container .services-box h3 {
+        font-size: 1.5rem; /* የርዕሱ መጠን እንዲጨምር */
+    }
+
+    .services-container .services-box p {
+        font-size: 1rem; /* የዝርዝር ጽሑፉ መጠን እንዲጨምር */
+        line-height: 1.6; /* ጽሑፎቹ እንዳይጠባበቁ ክፍተት ይሰጣል */
+    }
+    
+    .services-box {
+        padding: 2rem 1rem; /* የቦክሱ ውስጠኛ ክፍተት ለስልክ እንዲመች */
+    }
+}
+
