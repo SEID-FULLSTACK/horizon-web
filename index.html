@@ -59,7 +59,8 @@
                 </a>
                 <a href="#contact" class="btn-sub">
                     <span class="en">Get Started</span>
-                    <span class="am">አሁኑኑ ጀምር</span>
+                      <span class="am">አሁኑኑ ጀምር</span>
+                    
                 </a>
             </div>
         </div>
@@ -293,6 +294,23 @@
         <p>&copy; 2026 Horizon Web Tech. All Rights Reserved.</p>
     </div>
 </footer>
+<script>
+    // በተኑን እና ሊንኮቹን መያዝ
+    const menuIcon = document.querySelector('.menu-icon');
+    const navLinks = document.querySelector('.nav-links');
+
+    // በተኑ ሲነካ 'active' የሚለውን ክላስ መጨመር ወይም መቀነስ
+    menuIcon.onclick = () => {
+        navLinks.classList.toggle('active');
+    };
+
+    // ሊንኮቹ ሲነኩ ሜኑው እንዲዘጋ (ለተሻለ አጠቃቀም)
+    document.querySelectorAll('.nav-links li a').forEach(link => {
+        link.onclick = () => {
+            navLinks.classList.remove('active');
+        };
+    });
+</script>
 </body>
 </html>
 
