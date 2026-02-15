@@ -3,112 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon Web Tech</title>
-    <meta name="description" content="Horizon Web Tech- ጥራት ያላቸው የድረ-ገጽ ዝግጅት አገልግሎቶች።">
-<meta name="keywords" content="Website, Graphics Design, Horizon, Seid Fullstack">
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Horizon Web Tech|No-JS</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 </head>
 <body>
-
-<header>
+    <input type="checkbox"id="lang-toggle"class="lang-checkbox">
+<header class="main-header">
 <div class="logo">
-<img src="logo.jpg" alt="Horizon Web Lab Logo">
-<span class="logo-text">HORIZON <SPAN class="blue-text">WEB TECH</SPAN></span></div>
-<div class="Logo"></div>
-<nav>
-<nav>
-    <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div> 
-    
-
-    <ul class="nav-links">
-        <li><a href="#home">home</a></li>
-        <li><a href="#about">about us</a></li>
-        <li><a href="#services">services</a></li>
-        <li><a href="#portfolio">portfolio</a></li>
-        <li><a href="#contact" class="mobile-order">Order Now</a></li>
-    </ul>
+<img src="update logo.png"alt="logo">
+<div class="logo-text">
+<span class="en">Horizon <span class="accent">Web Tech</span></span>
+        <span class="am">ሆራይዘን <span class="accent">ዌብ ቴክ</span></span>
+    </div>
+</div>
+<nav class="navbar">
+<input type="checkbox"id="menu-toggle" class=""menu-checkbox">
+<label for="menu-toggle"class="menu-icon"><i class="fas fa-bars"></i></label>
+<ul class="nav-links">
+<li><a href="#home"><span class="en">home</span><span class="am">መነሻ</span></a></li>
+<li><a href="#about us"><span class="en">about us</span><span class="am">ስለ እኛ</span></a></li>
+<li><a href="#services"><span class="en">services</span><span class="am">አገልግሎቶች</span></a></li>
+<li><a href="#portfolio"><span class="en">portfolio</span><span class="am">የስራ ስብስብ</span></a></li>
+<li><a href="#order now"><span class="en">order now</span><span class="am">አሁን ይዘዙ</span></a></li>
+<li><label for="lang-toggle"class="lang-btn"><span class="en">አማረኛ</span><span class="am">English</span>
+</label></li>
+</ul>
 </nav>
-
 </header>
 <section class="hero">
-<div class="hero-content">
-<h1>Welcome to Horizon Web Tech </h1>
-<h4>Expert Web development and digital solutions tailored for your business growth.</h4>
-<h4>ዘመናዊ ውይብሳይት በመገንባት ንግድዎን አንዲያድግ አንረዳወታለን፡፡</h4>
+    <div class="hero-section">
+        <div class="hero-content">
 
-<div class="hero-butns">
-<a href="#services"class="hero-btn">Explore Services</a>
-
-<a href="#ORDER NOW" class="hero-btn secondary">Order now</a>
-</div>
-</div>
-</section>
-<section id="services" class="services-section">
-<h2> Services</h2>
-<div class="services-grid">
-<div class="service-box"data-aos="fade-up"data-aos-delay="100">
-<i class=" fas fa-palette"></i><h3>Web Design</h3>
-<p>Creating beautiful and modern websites for your business.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="200">
-<i class=" fa-laptop-code"></i><h3>Web Development</h3>
-<p>Building fast and Secure web applications with latest tech.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="300">
-<i class="fas fa-search-dollar"></i><h3>SEO Optimization</h3>
-<P>Helping your website rank higher on search enginers.</P>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="400">
-<i class=" fas fa-mobile-alt"></i><h3>App Development</h3>
-<p>Designing user-friendly mobile applications for android and ios devices.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="500">
-<i class=" fas fa-bezier-curve"></i><h3>UI/UX Design</h3>
-<p>Creating engaging user interfaces and seamless experinces for your products.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="600">
-<i class="fas fa-bullhorn"></i><h3>Digital Marketing</h3>
-<p>Boosting your online presence through social media and campaigns.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="700">
-<i class=" fas fa-cloud"></i><h3>Cloud Solutions</h3>
-<p>Secure and Scalable cloud storage and management for your business data.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="800">
-<i class=" fas fa-shopping-cart"></i><h3>E-commerce Solutions</h3>
-<p>Building powerful online stores to help you sell products globally.</p>
-</div>
-<div class="service-box"data-aos="fade-up"data-aos-delay="900">
-<i class="fas fa-headset"></i><h3>Tech Support</h3>
-<p>Providing round-the-clock technical assistance and maintenance.</p>
-</div>
-</div>
-</section>
-
-<section class="portfolio" id="portfolio">
-    <h2 class="heading">OUR WORKS /የሰራናቸው <span>ስራዎች</span></h2>
-
-    <div class="portfolio-container">
-        <div class="portfolio-box">
-            <img src="tamagnbet.netlify.app_.png" alt="Portfolio Image">
+         <h1>
+                <span class="en">Digital Solutions Center</span>
+                <span class="am">የዲጂታል መፍትሄዎች ማዕከል</span>
+          
+            <h1>
             
-            <div class="portfolio-overlay">
-                <h4>Web Development</h4>
-                <p>Ethiopia's Trusted Property Hub - Modern Real Estate Platform.</p>
-                <a href="#"><i class='https://tamagnbet.netlify.app'></i> Visit Project</a>
+            <h2>
+                <span class="en">Grow your business with modern Technology</span>
+                <span class="am">ንግድዎን በዘመናዊ ቴክኖሎጂ ያሳድጉ</span>
+            </h2>
+
+            <p>
+                <span class="en"> expand your business reach by building fast, reliable websites that work perfectly on any phone.</span>
+                <span class="am">ፈጣን፣ አስተማማኝ እና በማንኛውም ስልክ ላይ በትክክል የሚሰሩ ዌብሳይቶችን በመገንባት የንግድዎን ተደራሽነት እናሳድጋለን።</span>
+            </p>
+            
+            <div class="hero-btns">
+                <a href="#services" class="btn-main">
+                    <span class="en">View Services</span>
+                    <span class="am">አገልግሎቶችን እይ</span>
+                </a>
+                <a href="#contact" class="btn-sub">
+                    <span class="en">Get Started</span>
+                    <span class="am">አሁኑኑ ጀምር</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="tech-stack-card">
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+                <div class="code-line"></div>
             </div>
         </div>
     </div>
 </section>
-        <section id="contact" class="contact-section">
+<section class="services-main-wrapper">
+    <div class="service-header">
+        <h2>Our Services</h2>
+        <div class="underline"></div>
+    </div>
+
+    <div class="service-content-flex">
+        <div class="service-left-image">
+            <img src="herosection img.jpg" alt="Services">
+        </div>
+        <div class="services-right-cards">
+ <div class="service-box" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-palette service-icon"></i>
+            <h3>
+                <span class="en">Web Design</span>
+                <span class="am">የዌብሳይት ዲዛይን</span>
+            </h3>
+            <p>
+                <span class="en">Creating beautiful and modern websites for your business.</span>
+                <span class="am">ለድርጅትዎ ውብ እና ዘመናዊ ዌብሳይቶችን እንሰራለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-laptop-code service-icon"></i>
+            <h3>
+                <span class="en">Web Development</span>
+                <span class="am">የዌብሳይት ልማት</span>
+            </h3>
+            <p>
+                <span class="en">Building fast and secure web applications with latest tech.</span>
+                <span class="am">በዘመናዊ ቴክኖሎጂ ፈጣን እና ደህንነቱ የተጠበቀ ዌብሳይት እንገነባለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-search-dollar service-icon "></i>
+            <h3>
+                <span class="en">SEO Optimization</span>
+                <span class="am">የፍለጋ ሞተር ማመቻቸት (SEO)</span>
+            </h3>
+            <p>
+                <span class="en">Helping your website rank higher on search engines.</span>
+                <span class="am">ዌብሳይትዎ በፍለጋ ውጤቶች ላይ ቀዳሚ እንዲሆን እናደርጋለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="400">
+            <i class="fas fa-mobile-alt service-icon"></i>
+            <h3>
+                <span class="en">App Development</span>
+                <span class="am">የሞባይል መተግበሪያ ልማት</span>
+            </h3>
+            <p>
+                <span class="en">Designing user-friendly mobile applications for Android and iOS.</span>
+                <span class="am">ለአንድሮይድ እና አይኦኤስ ምቹ የሞባይል አፕሊኬሽኖችን እንሰራለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="500">
+            <i class="fas fa-bezier-curve service-icon"></i>
+            <h3>
+                <span class="en">UI/UX Design</span>
+                <span class="am">የተጠቃሚ በይነገጽ ዲዛይን</span>
+            </h3>
+            <p>
+                <span class="en">Creating engaging user interfaces and seamless experiences.</span>
+                <span class="am">ለተጠቃሚዎች ምቹ እና ማራኪ የሆኑ የዲጂታል ገጽታዎችን እንፈጥራለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="600">
+            <i class="fas fa-bullhorn service-icon"></i>
+            <h3>
+                <span class="en">Digital Marketing</span>
+                <span class="am">ዲጂታል ማርኬቲንግ</span>
+            </h3>
+            <p>
+                <span class="en">Boosting your online presence through social media and campaigns.</span>
+                <span class="am">የድርጅትዎን የመስመር ላይ ዝና በማህበራዊ ሚዲያ እና ዘመቻዎች እናሳድጋለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="700">
+            <i class="fas fa-cloud service-icon"></i>
+            <h3>
+                <span class="en">Cloud Solutions</span>
+                <span class="am">ክላውድ ሶሉሽንስ</span>
+            </h3>
+            <p>
+                <span class="en">Secure and scalable cloud storage for your business data.</span>
+                <span class="am">ለድርጅትዎ መረጃዎች አስተማማኝ የክላውድ ማከማቻ እናዘጋጃለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="800">
+            <i class="fas fa-shopping-cart service-icon"></i>
+            <h3>
+                <span class="en">E-commerce Solutions</span>
+                <span class="am">የኢ-ኮሜርስ መፍትሄዎች</span>
+            </h3>
+            <p>
+                <span class="en">Building powerful online stores to help you sell globally.</span>
+                <span class="am">ምርቶችዎን በዓለም አቀፍ ደረጃ የሚሸጡበት የመስመር ላይ ሱቅ እንገነባለን።</span>
+            </p>
+        </div>
+
+        <div class="service-box" data-aos="fade-up" data-aos-delay="900">
+            <i class="fas fa-headset service-icon"></i>
+            <h3>
+                <span class="en">Tech Support</span>
+                <span class="am">የቴክኒክ ድጋፍ</span>
+            </h3>
+            <p>
+                <span class="en">Providing round-the-clock technical assistance and maintenance.</span>
+                <span class="am">የ24 ሰዓት የቴክኒክ ድጋፍ እና የጥገና አገልግሎት እንሰጣለን።</span>
+            </p>
+        </div>
+    </div>
+</section>
+  <section id="contact" class="contact-section">
     <div class="container">
         <h2 class="section-title text-center">Get In <span class="cyan-text">Touch</span> / ያግኙን</h2>
         
@@ -133,11 +218,6 @@
 <section id="about" class="about-section">
     <div class="container">
         <div class="about-flex">
-            
-            <div class="about-image-side">
-                <img src="web developer image.jpg" alt="Horizon Web Tech Workspace" class="about-img">
-            </div>
-
             <div class="about-text-side">
                 <h2 class="section-title">About <span class="cyan-text">Us</span> / ስለ <span class="cyan-text">እኛ</span></h2>
                 
@@ -213,20 +293,7 @@
         <p>&copy; 2026 Horizon Web Tech. All Rights Reserved.</p>
     </div>
 </footer>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-<script>
-    const menu = document.querySelector('#mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-
-    menu.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-</script>
 </body>
-
 </html>
 
 
