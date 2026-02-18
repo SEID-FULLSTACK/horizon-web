@@ -113,6 +113,55 @@ body {
     transition: var(--transition);
     cursor: pointer;
 }
+/* በተኖቹ ያሉበት ኮንቴይነር */
+.button-group {
+    display: flex;
+    gap: 15px; /* በበተኖቹ መካከል ያለው ርቀት */
+    justify-content: center;
+    padding: 20px;
+}
+
+/* አጠቃላይ የበተን ቅርጽ */
+.btn {
+    text-decoration: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px; /* ማዕዘኑን ለማለስለስ */
+    transition: all 0.3s ease; /* ለውጡ ቀስ ብሎ እንዲታይ */
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+/* የ Login በተን ስታይል */
+.btn-login {
+    background-color: #ffffff;
+    color: #1e3c72;
+    border: 2px solid #ffffff;
+}
+
+.btn-login:hover {
+    background-color: transparent;
+    color: #ffffff;
+    transform: translateY(-3px); /* ወደ ላይ ከፍ እንዲል */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* የ Register በተን ስታይል */
+.btn-register {
+    background-color: #4facfe;
+    color: #ffffff;
+    border: 2px solid #4facfe;
+}
+
+.btn-register:hover {
+    background-color: transparent;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
 .btn-main, .btn { background: var(--accent-gold); color: var(--bg-dark); border: none; }
 .btn-sub { border: 2px solid var(--accent-gold); color: var(--accent-gold); }
 

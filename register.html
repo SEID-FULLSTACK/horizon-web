@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Web - Register</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root {
+            --main-purple: #2d1b4e;
+            --light-purple: #4a2d7a;
+            --gold-accent: #ffcc00;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Ubuntu', sans-serif;
+            background: radial-gradient(circle at top right, var(--light-purple), var(--main-purple));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .register-box {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        h2 { color: var(--gold-accent); margin-bottom: 5px; }
+        .subtitle { font-size: 0.9rem; margin-bottom: 20px; opacity: 0.8; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input:focus { border-color: var(--gold-accent); }
+
+        .btn-gold {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold-accent);
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+            color: #1a0f2e;
+        }
+
+        .btn-gold:hover { transform: scale(1.02); background: #e6b800; }
+
+        .footer-links { margin-top: 20px; font-size: 0.85rem; }
+        .footer-links a { color: var(--gold-accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="register-box">
+        <h2>Horizon Register</h2>
+        <div class="subtitle">አዲስ አካውንት ይፍጠሩ | Create Account</div>
+        
+        <input type="text" id="fullName" placeholder="Full Name / ሙሉ ስም">
+        <input type="email" id="email" placeholder="Email / ኢሜይል">
+        <input type="text" id="phone" placeholder="Phone Number / ስልክ ቁጥር">
+        <input type="password" id="pass" placeholder="Password / ይለፍ ቃል">
+        
+        <button class="btn-gold" id="regBtn">ይመዝገቡ | Register</button>
+
+        <div class="footer-links">
+            አካውንት አለዎት? | Have account? <a href="login.html">ይግቡ | Login</a>
+        </div>
+    </div>
+
+    <script>
+        // 1. Your Firebase Config (ከሎጊን ገጹ ላይ የወሰድከውን እዚህም ተካው)
+       
+const firebaseConfig = {
+  apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+  authDomain: "horizon-web-tech.firebaseapp.com",
+  projectId: "horizon-web-tech",
+  storageBucket: "horizon-web-tech.firebasestorage.app",
+  messagingSenderId: "472300718563",
+  appId: "1:472300718563:web:66e0aa4250fac73e3678d6",
+  measurementId: "G-RX10LYT9W1"
+};
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // 2. የምዝገባ ተግባር (Registration Logic)
+        document.getElementById('regBtn').addEventListener('click', () => {
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('pass').value;
+
+            if(!name || !email || !phone || !password) {
+                alert("እባክዎ ሁሉንም ይሙሉ! | Please fill all fields!");
+                return;
+            }
+
+            // ሀ. በ Authentication መመዝገብ
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    
+                    // ለ. ተጨማሪ መረጃን በ Firestore ውስጥ ማስቀመጥ
+                    return db.collection("users").doc(user.uid).set({
+                        fullName: name,
+                        email: email,
+                        phone: phone,
+                        createdAt: new Date()
+                    });
+                })
+                .then(() => {
+                    alert("ምዝገባው ተሳክቷል! | Registration Successful!");
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    alert("ስህተት: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>

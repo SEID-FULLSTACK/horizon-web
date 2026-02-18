@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Web Tech - Dashboard</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        :root {
+            --main-purple: #1a0f2e;
+            --sidebar-purple: rgba(45, 27, 78, 0.7);
+            --gold-accent: #ffcc00;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            background: #0f081d;
+            color: white;
+            font-family: 'Segoe UI', 'Ubuntu', sans-serif;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-purple);
+            backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 { 
+            color: var(--gold-accent); 
+            font-size: 24px; 
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .menu-item {
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-item:hover { 
+            background: rgba(255, 255, 255, 0.1); 
+            color: var(--gold-accent); 
+            transform: translateX(5px);
+        }
+
+        .menu-item.logout {
+            margin-top: auto;
+            color: #ff4d4d;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 320px;
+            padding: 40px;
+            width: calc(100% - 320px);
+        }
+
+        .welcome-section { margin-bottom: 40px; }
+        .welcome-section h1 { font-size: 2rem; margin-bottom: 10px; }
+        .welcome-section p { opacity: 0.7; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: 0.4s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--gold-accent);
+            transform: translateY(-10px);
+        }
+
+        .stat-card h3 { 
+            color: var(--gold-accent); 
+            font-size: 2.5rem; 
+            margin: 10px 0; 
+        }
+
+        .stat-card p { font-size: 1.1rem; opacity: 0.8; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 80px; padding: 10px; }
+            .sidebar h2, .menu-item span { display: none; }
+            .main { margin-left: 100px; width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Horizon Dash</h2>
+        <div class="menu-item">📊 <span>አጠቃላይ እይታ | Overview</span></div>
+        <div class="menu-item">📁 <span>ፕሮጀክቶች | Projects</span></div>
+        <div class="menu-item">💰 <span>ክፍያዎች | Payments</span></div>
+        <div class="menu-item">⚙️ <span>ማስተካከያ | Settings</span></div>
+        
+        <div class="menu-item logout" onclick="logout()">🚪 <span>ውጣ | Logout</span></div>
+    </div>
+
+    <div class="main">
+        <div class="welcome-section">
+            <h1>እንኳን ደህና መጡ | Welcome, <span id="userName">User</span>!</h1>
+            <p>የእርስዎ የፕሮጀክት እንቅስቃሴ መከታተያ | Your project activity tracker.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>12</h3>
+                <p>ያለቁ ስራዎች <br> Completed Tasks</p>
+            </div>
+            <div class="stat-card">
+                <h3>3</h3>
+                <p>በሂደት ላይ <br> In Progress</p>
+            </div>
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>አዲስ መልዕክት <br> New Messages</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Firebase Config (ልክ እንደ ሎጊን ገጹ እዚህም ይገባል)
+      const firebaseConfig = {
+  apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+  authDomain: "horizon-web-tech.firebaseapp.com",
+  projectId: "horizon-web-tech",
+  storageBucket: "horizon-web-tech.firebasestorage.app",
+  messagingSenderId: "472300718563",
+  appId: "1:472300718563:web:66e0aa4250fac73e3678d6",
+  measurementId: "G-RX10LYT9W1"
+};
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // 2. ተጠቃሚው መግባቱን ማረጋገጫ (Auth Check)
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // ተጠቃሚው ከገባ ስሙን ወይም ኢሜይሉን አሳይ
+                document.getElementById('userName').innerText = user.email.split('@')[0];
+            } else {
+                // ተጠቃሚው ካልገባ ወደ login.html መልሰው
+                window.location.href = "login.html";
+            }
+        });
+
+        // 3. መውጫ ተግባር (Logout Function)
+        function logout() {
+            auth.signOut().then(() => {
+                window.location.href = "login.html";
+            });
+        }
+    </script>
+</body>
+</html>
