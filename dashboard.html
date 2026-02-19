@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon Dashboard - Final Version</title>
+    <title>Horizon Web Tech Dashboard - Full System</title>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { display: flex; background: #2d1b4e; color: white; min-height: 100vh; }
+        body { display: flex; background: #121212; color: white; min-height: 100vh; }
 
         /* Sidebar Design */
         .sidebar { width: 260px; background: #1e1e1e; padding: 25px; display: flex; flex-direction: column; position: fixed; height: 100vh; border-right: 1px solid #333; }
@@ -38,11 +39,10 @@
 
         label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
         input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; background: #252525; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
-        input:focus, select:focus, textarea:focus { border-color: #4facfe; }
+        input[type="file"] { padding: 10px; border: 2px dashed #4facfe; cursor: pointer; }
         
         button.order-btn { background: #4facfe; color: white; border: none; padding: 15px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; transition: 0.3s; }
         button.order-btn:hover { background: #008eff; }
-        button:disabled { background: #555; cursor: not-allowed; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -89,11 +89,14 @@
                    <option value="App Development">App Development - 100,000 ETB</option>
                 </select>
 
-                <label>የትራንዛክሽን ቁጥር (Transaction ID):</label>
-                <input type="text" id="transaction-id" placeholder="ከከፈሉ በኋላ የደረሰኙን ቁጥር እዚህ ያስገቡ...">
+                <label>የክፍያ ማረጋገጫ ቁጥር (Transaction ID):</label>
+                <input type="text" id="transaction-id" placeholder="የደረሰኝ ቁጥር እዚህ ያስገቡ...">
 
-                <label>ተጨማሪ መመሪያ ወይም ፍላጎት፡</label>
-                <textarea id="order-details" rows="3" placeholder="ስለ ስራው ዝርዝር መረጃ እዚህ ይጻፉ..."></textarea>
+                <label>ደረሰኝ (Screenshot) - ካለዎት፡</label>
+                <input type="file" id="payment-receipt" accept="image/*">
+
+                <label>ዝርዝር መረጃ፡</label>
+                <textarea id="order-details" rows="3" placeholder="ተጨማሪ ፍላጎት ካለዎት እዚህ ይጻፉ..."></textarea>
                 
                 <button class="order-btn" id="order-submit-btn" onclick="placeOrder()">ትዕዛዝ ላክ</button>
             </div>
@@ -116,11 +119,13 @@
   storageBucket: "horizon-web-tech.firebasestorage.app",
   messagingSenderId: "472300718563",
   appId: "1:472300718563:web:66e0aa4250fac73e3678d6",
-  measurementId: "G
+  measurementId: "G-RX10LYT9W1"
+};
         firebase.initializeApp(firebaseConfig);
 
         const auth = firebase.auth();
         const db = firebase.firestore();
+        const storage = firebase.storage();
 
         // --- 2. Auth Check ---
         auth.onAuthStateChanged(user => {
@@ -140,56 +145,61 @@
             if (sectionId === 'orders') loadUserOrders();
         }
 
-        // --- 4. Place Order Logic (Transaction ID System) ---
+        // --- 4. Place Order Logic (ሁለቱንም አማራጭ የያዘ) ---
         async function placeOrder() {
             const user = auth.currentUser;
+            const receiptFile = document.getElementById('payment-receipt').files[0];
             const transId = document.getElementById('transaction-id').value;
-            const service = document.getElementById('service-type').value;
-            const details = document.getElementById('order-details').value;
             const btn = document.getElementById('order-submit-btn');
 
-            if (transId === "") {
-                alert("እባክዎ መጀመሪያ የትራንዛክሽን ቁጥሩን ያስገቡ።");
-                return;
+            // ቼክ ለማድረግ፡ ቢያንስ አንዱ መኖር አለበት
+            if (!receiptFile && transId === "") {
+                return alert("እባክዎ ደረሰኝ ይምረጡ ወይም የትራንዛክሽን ቁጥር ያስገቡ።");
             }
 
-            btn.innerText = "በመላክ ላይ...⏳";
-            btn.disabled = true;
+            btn.innerText = "በመላክ ላይ...⏳"; btn.disabled = true;
 
             try {
+                let url = "";
+                // ፎቶ ካለ ብቻ ወደ Storage እንዲላክ
+                if (receiptFile) {
+                    try {
+                        const fileRef = storage.ref('receipts/' + user.uid + "_" + Date.now());
+                        const uploadTask = await fileRef.put(receiptFile);
+                        url = await uploadTask.ref.getDownloadURL();
+                    } catch (storageError) {
+                        console.log("Storage Error, but continuing with Trans ID...");
+                        // Storage እምቢ ካለ ፎቶውን ትተን በቁጥሩ ብቻ እንዲቀጥል
+                    }
+                }
+
                 await db.collection('orders').add({
                     userId: user.uid,
                     email: user.email,
-                    serviceType: service,
-                    description: details,
-                    transactionID: transId,
+                    serviceType: document.getElementById('service-type').value,
+                    description: document.getElementById('order-details').value,
+                    receiptURL: url,
+                    transactionID: transId, // አዲሱ መረጃ እዚህ ተጨምሯል
                     status: "Pending",
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
-
-                alert("ትዕዛዝዎ በተሳካ ሁኔታ ተልኳል!");
+                
+                alert("ተልኳል!");
                 document.getElementById('transaction-id').value = "";
-                document.getElementById('order-details').value = "";
                 showSection('orders');
-            } catch (error) {
-                console.error(error);
-                alert("ስህተት አጋጥሟል፣ እባክዎ እንደገና ይሞክሩ።");
-            } finally {
-                btn.innerText = "ትዕዛዝ ላክ";
-                btn.disabled = false;
+            } catch (e) { 
+                alert("ስህተት አጋጥሟል! እባክዎ ኢንተርኔትዎን ያረጋግጡ።"); 
+            } finally { 
+                btn.innerText = "ትዕዛዝ ላክ"; 
+                btn.disabled = false; 
             }
         }
 
-        // --- 5. Load User Orders (Real-time tracking) ---
+        // --- 5. Load Orders (Status Tracking) ---
         function loadUserOrders() {
             const user = auth.currentUser;
             const list = document.getElementById('orders-list');
-            if (!user) return;
-
-            db.collection('orders')
-              .where('userId', '==', user.uid)
-              .orderBy('timestamp', 'desc')
-              .onSnapshot(snap => {
+            db.collection('orders').where('userId', '==', user.uid).orderBy('timestamp', 'desc').onSnapshot(snap => {
                 list.innerHTML = snap.empty ? "ምንም ትዕዛዝ የለም" : "";
                 snap.forEach(doc => {
                     const d = doc.data();
@@ -197,19 +207,15 @@
                     const sClass = s === "Pending" ? "status-pending" : s === "In Progress" ? "status-progress" : "status-completed";
                     const sTxt = s === "Pending" ? "አዲስ" : s === "In Progress" ? "በሂደት" : "ተጠናቋል";
                     
-                    list.innerHTML += `
-                        <div class="order-item">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <strong>${d.serviceType}</strong>
-                                <span class="status-badge ${sClass}">${sTxt}</span>
-                            </div>
-                            <p style="font-size:13px; color:#aaa; margin-top:8px;">${d.description || 'ዝርዝር መረጃ የለም'}</p>
-                            <p style="font-size:12px; color:#4facfe; margin-top:5px;">ID: ${d.transactionID}</p>
-                        </div>`;
+                    list.innerHTML += `<div class="order-item">
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>${d.serviceType}</strong>
+                            <span class="status-badge ${sClass}">${sTxt}</span>
+                        </div>
+                        <p style="font-size:13px; color:#aaa; margin-top:5px;">${d.description || 'ምንም ዝርዝር የለም'}</p>
+                        ${d.transactionID ? `<p style="font-size:11px; color:#4facfe;">ID: ${d.transactionID}</p>` : ''}
+                    </div>`;
                 });
-            }, error => {
-                console.log("Index Error or Permission Error:", error);
-                list.innerHTML = "ትዕዛዞችን ለማየት እባክዎ ጥቂት ደቂቃ ይጠብቁ (Indexing...)";
             });
         }
 
@@ -217,4 +223,3 @@
     </script>
 </body>
 </html>
-
