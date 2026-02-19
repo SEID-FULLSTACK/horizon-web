@@ -3,153 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon Web Tech - Dashboard</title>
+    <title>Horizon Web Tech Dashboard - Full System</title>
     
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
     <style>
-        :root {
-            --main-purple: #1a0f2e;
-            --sidebar-purple: rgba(45, 27, 78, 0.7);
-            --gold-accent: #ffcc00;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { display: flex; background: #121212; color: white; min-height: 100vh; }
 
-        body {
-            margin: 0;
-            display: flex;
-            background: #0f081d;
-            color: white;
-            font-family: 'Segoe UI', 'Ubuntu', sans-serif;
-        }
+        /* Sidebar Design */
+        .sidebar { width: 260px; background: #1e1e1e; padding: 25px; display: flex; flex-direction: column; position: fixed; height: 100vh; border-right: 1px solid #333; }
+        .sidebar h2 { color: #4facfe; text-align: center; margin-bottom: 40px; font-size: 24px; letter-spacing: 1px; }
+        .sidebar a { color: #bbb; text-decoration: none; padding: 15px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; }
+        .sidebar a:hover, .sidebar a.active { background: #4facfe; color: white; transform: translateX(5px); }
+        .logout-btn { margin-top: auto; background: #ff4b2b; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            height: 100vh;
-            background: var(--sidebar-purple);
-            backdrop-filter: blur(15px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-        }
+        /* Main Content Design */
+        .main-content { margin-left: 260px; flex: 1; padding: 40px; }
+        .header { margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .section { display: none; animation: fadeIn 0.4s ease-out; }
+        .active-section { display: block; }
 
-        .sidebar h2 { 
-            color: var(--gold-accent); 
-            font-size: 24px; 
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
-        }
+        .card { background: #1e1e1e; padding: 30px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .bank-info { background: #2d2d2d; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #4facfe; line-height: 1.8; }
+        
+        label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; background: #252525; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
+        input[type="file"] { padding: 10px; border: 2px dashed #444; cursor: pointer; }
+        input:focus, select:focus, textarea:focus { border-color: #4facfe; }
+        
+        button.order-btn { background: #4facfe; color: white; border: none; padding: 15px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; transition: 0.3s; }
+        button.order-btn:hover { background: #008eff; }
+        button:disabled { background: #555; cursor: not-allowed; }
 
-        .menu-item {
-            padding: 15px;
-            margin: 8px 0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .menu-item:hover { 
-            background: rgba(255, 255, 255, 0.1); 
-            color: var(--gold-accent); 
-            transform: translateX(5px);
-        }
-
-        .menu-item.logout {
-            margin-top: auto;
-            color: #ff4d4d;
-        }
-
-        /* Main Content */
-        .main {
-            margin-left: 320px;
-            padding: 40px;
-            width: calc(100% - 320px);
-        }
-
-        .welcome-section { margin-bottom: 40px; }
-        .welcome-section h1 { font-size: 2rem; margin-bottom: 10px; }
-        .welcome-section p { opacity: 0.7; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-        }
-
-        .stat-card {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            transition: 0.4s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--gold-accent);
-            transform: translateY(-10px);
-        }
-
-        .stat-card h3 { 
-            color: var(--gold-accent); 
-            font-size: 2.5rem; 
-            margin: 10px 0; 
-        }
-
-        .stat-card p { font-size: 1.1rem; opacity: 0.8; }
-
-        @media (max-width: 768px) {
-            .sidebar { width: 80px; padding: 10px; }
-            .sidebar h2, .menu-item span { display: none; }
-            .main { margin-left: 100px; width: auto; }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <h2>Horizon Web Tech Dash</h2>
-        <div class="menu-item">📊 <span>አጠቃላይ እይታ | Overview</span></div>
-        <div class="menu-item">📁 <span>ፕሮጀክቶች | Projects</span></div>
-        <div class="menu-item">💰 <span>ክፍያዎች | Payments</span></div>
-        <div class="menu-item">⚙️ <span>ማስተካከያ | Settings</span></div>
-        
-        <div class="menu-item logout" onclick="logout()">🚪 <span>ውጣ | Logout</span></div>
+        <h2>HORIZON</h2>
+        <a onclick="showSection('home')" id="nav-home" class="active">🏠 Dashboard</a>
+        <a onclick="showSection('services')" id="nav-services">🛠 Services & Pay</a>
+        <a onclick="showSection('orders')" id="nav-orders">📦 My Orders</a>
+        <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
 
-    <div class="main">
-        <div class="welcome-section">
-            <h1>እንኳን ደህና መጡ | Welcome, <span id="userName">User</span>!</h1>
-            <p>የእርስዎ የፕሮጀክት እንቅስቃሴ መከታተያ | Your project activity tracker.</p>
+    <div class="main-content">
+        <div class="header">
+            <h1 id="welcome-message">በመጫን ላይ...</h1>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>12</h3>
-                <p>ያለቁ ስራዎች <br> Completed Tasks</p>
+        <div id="home-section" class="section active-section">
+            <div class="card">
+                <h3>እንኳን ደህና መጡ!</h3>
+                <p style="color: #bbb; margin-top: 10px;">ይህ የእርስዎ የግል ዳሽቦርድ ነው። እዚህ አገልግሎቶችን ማዘዝ፣ ክፍያ መፈጸም እና የትዕዛዝዎን ሁኔታ መከታተል ይችላሉ።</p>
             </div>
-            <div class="stat-card">
-                <h3>3</h3>
-                <p>በሂደት ላይ <br> In Progress</p>
+        </div>
+
+        <div id="services-section" class="section">
+            <div class="card">
+                <h3>አገልግሎት ይዘዙና ክፍያ ይፈጽሙ</h3>
+                
+                <div class="bank-info">
+                    <p><strong>🏦 የክፍያ አማራጮች፡</strong></p>
+                    <p>ንግድ ባንክ (CBE): <span style="color: #4facfe;">1000094194478</span></p>
+                    <p>አቢሲኒያ (BOA): <span style="color: #4facfe;">83056193</span></p>
+                    <p>ቴሌብር (telebirr): <span style="color: #4facfe;">0911993521</span></p>
+                    <p>ስም፡ <strong>ሰይድ [ፍሪው]</strong></p>
+                </div>
+
+                <label>የአገልግሎት አይነት ይምረጡ፡</label>
+                <select id="service-type">
+                  <option value="frontend development">frontend development - 80,000 ETB</option>
+                  <option value="backend development">backend development - 180,000 ETB</option>
+                   <option value="fullstack development">fullstack development - 250,000 ETB</option>
+                    <option value="Web Design">Web Design - 50,000 ETB</option>
+                   <option value="App Development">App Development - 100,000 ETB</option>
+                </select>
+
+                <label>የክፍያ ደረሰኝ (Screenshot/Photo):</label>
+                <input type="file" id="payment-receipt" accept="image/*">
+
+                <label>ተጨማሪ መመሪያ ወይም መረጃ ካለዎት፡</label>
+                <textarea id="order-details" rows="4" placeholder="ለምሳሌ፡ የዌብሳይቱ ከለር ምን እንዲሆን ይፈልጋሉ?"></textarea>
+                
+                <button class="order-btn" id="order-submit-btn" onclick="placeOrder()">ትዕዛዝ እና ደረሰኝ ላክ</button>
             </div>
-            <div class="stat-card">
-                <h3>5</h3>
-                <p>አዲስ መልዕክት <br> New Messages</p>
+        </div>
+
+        <div id="orders-section" class="section">
+            <div class="card">
+                <h3>የእኔ ትዕዛዞች</h3>
+                <div id="orders-list" style="margin-top: 15px; color: #888;">በአሁኑ ሰዓት ምንም ትዕዛዝ የለም።</div>
             </div>
         </div>
     </div>
 
     <script>
-        // 1. Firebase Config (ልክ እንደ ሎጊን ገጹ እዚህም ይገባል)
-      const firebaseConfig = {
+        // --- 1. Firebase Configuration (የራስህን እዚህ ተካ) ---
+     const firebaseConfig = {
   apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
   authDomain: "horizon-web-tech.firebaseapp.com",
   projectId: "horizon-web-tech",
@@ -159,26 +115,86 @@
   measurementId: "G-RX10LYT9W1"
 };
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
 
-        // 2. ተጠቃሚው መግባቱን ማረጋገጫ (Auth Check)
-        auth.onAuthStateChanged((user) => {
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // --- 2. Authentication Check ---
+        auth.onAuthStateChanged(user => {
             if (user) {
-                // ተጠቃሚው ከገባ ስሙን ወይም ኢሜይሉን አሳይ
-                document.getElementById('userName').innerText = user.email.split('@')[0];
+                db.collection('users').doc(user.uid).get().then(doc => {
+                    if (doc.exists) {
+                        document.getElementById('welcome-message').innerText = "እንኳን ደህና መጣህ፣ " + doc.data().fullName + "!";
+                    }
+                });
             } else {
-                // ተጠቃሚው ካልገባ ወደ login.html መልሰው
                 window.location.href = "login.html";
             }
         });
 
-        // 3. መውጫ ተግባር (Logout Function)
+        // --- 3. Sidebar Navigation Logic ---
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
+            document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(sectionId + '-section').classList.add('active-section');
+            document.getElementById('nav-' + sectionId).classList.add('active');
+        }
+
+        // --- 4. Order & Payment Upload Logic ---
+        async function placeOrder() {
+            const user = auth.currentUser;
+            const service = document.getElementById('service-type').value;
+            const details = document.getElementById('order-details').value;
+            const receiptFile = document.getElementById('payment-receipt').files[0];
+            const btn = document.getElementById('order-submit-btn');
+
+            if (!receiptFile) {
+                alert("እባክዎ መጀመሪያ የክፍያ ደረሰኝ (Screenshot) ይምረጡ።");
+                return;
+            }
+
+            btn.innerText = "በመላክ ላይ... ⏳";
+            btn.disabled = true;
+
+            try {
+                // ሀ. ፎቶውን ወደ Firebase Storage መላክ
+                const fileRef = storage.ref('receipts/' + user.uid + "_" + Date.now() + "_" + receiptFile.name);
+                const uploadTask = await fileRef.put(receiptFile);
+                const downloadURL = await uploadTask.ref.getDownloadURL();
+
+                // ለ. መረጃውን ወደ Firestore መመዝገብ
+                await db.collection('orders').add({
+                    userId: user.uid,
+                    email: user.email,
+                    serviceType: service,
+                    description: details,
+                    receiptURL: downloadURL,
+                    status: "Pending",
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                alert("ትዕዛዝዎ በተሳካ ሁኔታ ተልኳል! ደረሰኝዎን አረጋግጠን እናገኝዎታለን።");
+                document.getElementById('order-details').value = "";
+                document.getElementById('payment-receipt').value = "";
+                showSection('home');
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("ስህተት አጋጥሟል! እባክዎ ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።");
+            } finally {
+                btn.innerText = "ትዕዛዝ እና ደረሰኝ ላክ";
+                btn.disabled = false;
+            }
+        }
+
+        // --- 5. Logout ---
         function logout() {
             auth.signOut().then(() => {
-                window.location.href = "login.html";
+                window.location.href = "index.html";
             });
         }
     </script>
 </body>
-
 </html>
