@@ -15,6 +15,26 @@
             --gold-accent: #ffcc00;
             --glass: rgba(255, 255, 255, 0.05);
         }
+.back-btn {
+    position: absolute; /* ገጹ ላይ የፈለግነው ቦታ ለማስቀመጥ */
+    top: 20px;          /* ከላይ 20px ርቀት */
+    right: 20px;        /* በቀኝ በኩል 20px ርቀት */
+    background: rgba(79, 172, 254, 0.2); /* ፈዘዝ ያለ ሰማያዊ */
+    color: white;
+    border: 1px solid #4facfe;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1000;      /* ከሌሎች ምስሎች በላይ እንዲታይ */
+}
+
+.back-btn:hover {
+    background: #4facfe; /* ሲነካ ደመቅ እንዲል */
+    color: #121212;
+}
 
         body {
             margin: 0;
@@ -27,7 +47,27 @@
             color: white;
         }
 
-        .login-box {
+    .back-btn {
+    position: absolute; /* ገጹ ላይ የፈለግነው ቦታ ለማስቀመጥ */
+    top: 20px;          /* ከላይ 20px ርቀት */
+    right: 20px;        /* በቀኝ በኩል 20px ርቀት */
+    background: #purple ; /* ፈዘዝ ያለ ሰማያዊ */
+    color: white;
+    border: 1px solid #4facfe;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1000;      /* ከሌሎች ምስሎች በላይ እንዲታይ */
+}
+
+.back-btn:hover {
+    background: #4facfe; /* ሲነካ ደመቅ እንዲል */
+    color: #121212;
+}
+    .login-box {
             background: var(--glass);
             backdrop-filter: blur(15px);
             padding: 40px;
@@ -76,6 +116,7 @@
     </style>
 </head>
 <body>
+<a href="index.html" class="back-btn">ወደ ዋናው ገጽ (Back)</a>
 
     <div class="login-box">
         <h2>Horizon Web Tech Login</h2>
@@ -90,16 +131,7 @@
             አዲስ ነዎት? | New here? <a href="register.html">ይመዝገቡ | Register</a>
         </div>
     </div>
-<button onclick="window.location.href='index.html'" style="
-    background: transparent; 
-    border: 1px solid #4facfe; 
-    color: white; 
-    padding: 8px 15px; 
-    border-radius: 5px; 
-    cursor: pointer;
-    margin-bottom: 20px;">
-   back to Home/ ወደ ኋላ
-</button>
+
 
     <script>
         // 1. የ Firebase Config ኮድህን እዚህ ጋር ቀይረው (Your Config Here)
@@ -142,5 +174,6 @@
 </body>
 
 </html>
+
 
 
