@@ -28,6 +28,26 @@
             color: white;
             padding: 20px;
         }
+.back-btn {
+    position: absolute; /* ገጹ ላይ የፈለግነው ቦታ ለማስቀመጥ */
+    top: 20px;          /* ከላይ 20px ርቀት */
+    right: 20px;        /* በቀኝ በኩል 20px ርቀት */
+    background: rgba(79, 172, 254, 0.2); /* ፈዘዝ ያለ ሰማያዊ */
+    color: white;
+    border: 1px solid #4facfe;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1000;      /* ከሌሎች ምስሎች በላይ እንዲታይ */
+}
+
+.back-btn:hover {
+    background: #4facfe; /* ሲነካ ደመቅ እንዲል */
+    color: #121212;
+}
 
         .register-box {
             background: var(--glass);
@@ -78,6 +98,7 @@
     </style>
 </head>
 <body>
+<a href="index.html" class="back-btn">ወደ ዋናው ገጽ (Back)</a>
 
     <div class="register-box">
         <h2>Horizon Web Tech Register</h2>
@@ -149,3 +170,4 @@ const firebaseConfig = {
 </body>
 
 </html>
+
