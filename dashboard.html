@@ -317,17 +317,7 @@ label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
             btn.disabled = false; 
         }
     }
-function toggleMenu() {
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('active');
-}
 
-// ሊንክ ሲነካ ሜኑው እንዲዘጋ (ለስልክ ተጠቃሚዎች)
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.getElementById('navLinks').classList.remove('active');
-    });
-});
     // --- 5. Load User Orders ---
     function loadUserOrders() {
         const user = auth.currentUser;
@@ -355,13 +345,46 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
     function logout() { auth.signOut().then(() => window.location.href = "index.html"); }
 </script>
-    function toggleMenu() {
+ // --- Hamburger Menu Logic ---
+
+/**
+ * ሜኑውን ለመክፈት እና ለመዝጋት የሚያገለግል ተግባር
+ */
+function toggleMenu() {
     const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('active');
-    console.log("Menu toggled!"); // ኮንሶል ላይ ሰርኪንግ ለመፈተሽ
+    
+    // የ 'navLinks' ID መኖሩን ማረጋገጥ (ለስህተት መከላከያ)
+    if (navLinks) {
+        navLinks.classList.toggle('active');
+        console.log("Menu toggled: " + navLinks.classList.contains('active'));
+    } else {
+        console.error("ስህተት: 'navLinks' የሚባል ID ያለው Element አልተገኘም!");
+    }
 }
+
+document.addEventListener('click', function(event) {
+    const navLinks = document.getElementById('navLinks');
+    const menuIcon = document.querySelector('.menu-icon');
+
+    if (navLinks && navLinks.classList.contains('active')) {
+        if (!navLinks.contains(event.target) && !menuIcon.contains(event.target)) {
+            navLinks.classList.remove('active');
+            console.log("Menu closed by clicking outside");
+        }
+    }
+});
+const allLinks = document.querySelectorAll('.nav-links a');
+allLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks) {
+            navLinks.classList.remove('active');
+        }
+    });
+});
 </body>
 </html>
+
 
 
 
