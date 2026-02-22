@@ -265,7 +265,41 @@ auth.onAuthStateChanged(user => {
                 btn.disabled = false; 
             }
         }
+<script>
+    function showSection(sectionId) {
+        // 1. Get all sections and hide them
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.classList.remove('active-section');
+        });
 
+        // 2. Show the section that was clicked
+        const activeSection = document.getElementById(sectionId + '-section');
+        if (activeSection) {
+            activeSection.classList.add('active-section');
+        }
+
+        // 3. Update the Navigation Link styling
+        const navLinks = document.querySelectorAll('.sidebar a');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked link
+        const clickedLink = document.getElementById('nav-' + sectionId);
+        if (clickedLink) {
+            clickedLink.classList.add('active');
+        }
+    }
+
+    // Optional: Add a simple logout placeholder if you don't have one yet
+    function logout() {
+        if(confirm("Are you sure you want to logout?")) {
+            alert("Logging out...");
+            // window.location.href = 'login.html'; 
+        }
+    }
+</script>
         // --- 5. Load Orders (Status Tracking) ---
         function loadUserOrders() {
             const user = auth.currentUser;
@@ -294,6 +328,7 @@ auth.onAuthStateChanged(user => {
     </script>
 </body>
 </html>
+
 
 
 
