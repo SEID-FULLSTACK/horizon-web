@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon Web Tech Dashboard - Full System</title>
+    <title>Horizon Web Tech Dashboard - Horizontal System</title>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -12,75 +12,84 @@
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { display: flex; background: #121212; color: white; min-height: 100vh; }
+        body { background: #121212; color: white; min-height: 100vh; display: flex; flex-direction: column; }
 
-       /* --- Horizontal Top Bar Fix --- */
-.sidebar { 
-    width: 100%;            /* Stretch across the top */
-    height: 70px;           /* Fixed height for the bar */
-    background: #1e1e1e; 
-    padding: 0 30px;        /* Side padding only */
-    display: flex; 
-    flex-direction: row;    /* Align items horizontally */
-    align-items: center;    /* Center items vertically */
-    justify-content: space-between; /* Space out Logo, Nav, and Logout */
-    position: fixed;        /* Keep it at the top while scrolling */
-    top: 0;
-    left: 0;
-    border-bottom: 1px solid #333; 
-    z-index: 1000;
-}
+        /* --- Horizontal Top Navigation Bar --- */
+        .navbar { 
+            width: 100%;
+            height: 75px;
+            background: #1e1e1e; 
+            padding: 0 40px;
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: fixed; 
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #333; 
+            z-index: 1000;
+        }
 
-.sidebar h2 { 
-    color: #4facfe; 
-    font-size: 18px; 
-    margin-bottom: 0;       /* Remove bottom margin */
-    white-space: nowrap;
-}
+        .navbar h2 { 
+            color: #4facfe; 
+            font-size: 20px; 
+            letter-spacing: 1px;
+        }
 
-/* Container for your menu links */
-.nav-links {
-    display: flex;
-    gap: 15px;              /* Space between links */
-}
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
 
-.sidebar a { 
-    color: #bbb; 
-    text-decoration: none; 
-    padding: 10px 15px; 
-    border-radius: 8px; 
-    cursor: pointer; 
-    transition: 0.3s; 
-    font-size: 14px;
-}
+        .nav-links a { 
+            color: #bbb; 
+            text-decoration: none; 
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            font-size: 15px;
+            font-weight: 500;
+        }
 
-.sidebar a:hover, .sidebar a.active { 
-    background: #4facfe; 
-    color: white; 
-}
+        .nav-links a:hover, .nav-links a.active { 
+            background: #4facfe; 
+            color: white; 
+        }
 
-/* --- Main Content Adjustment --- */
-.main-content { 
-    margin-left: 0;         /* Reset the left margin */
-    margin-top: 80px;       /* Push content down below the 70px bar */
-    flex: 1; 
-    padding: 20px; 
-}
+        /* --- Main Content Area --- */
+        .main-content { 
+            margin-top: 90px; /* Space for the fixed navbar */
+            padding: 30px; 
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
 
-.logout-btn { 
-    background: #ff4b2b; 
-    color: white; 
-    border: none; 
-    padding: 8px 15px; 
-    border-radius: 6px; 
-    cursor: pointer; 
-    font-weight: bold;
-    margin-top: 0;          /* Remove the auto margin from before */
-}
-        .card { background: #1e1e1e; padding: 30px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .header h1 { font-size: 24px; margin-bottom: 20px; color: #4facfe; }
+
+        .logout-btn { 
+            background: #ff4b2b; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .logout-btn:hover { background: #e03a1d; }
+
+        /* --- UI Components --- */
+        .card { background: #1e1e1e; padding: 30px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #333; animation: fadeIn 0.5s ease-in; }
         .bank-info { background: #2d2d2d; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #4facfe; line-height: 1.8; }
         
-        /* Order Items & Status Badges */
+        .section { display: none; }
+        .active-section { display: block; }
+
         .order-item { background: #252525; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid #4facfe; }
         .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .status-pending { background: #ffa500; color: black; }
@@ -89,248 +98,198 @@
 
         label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
         input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; background: #252525; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
-        input[type="file"] { padding: 10px; border: 2px dashed #4facfe; cursor: pointer; }
-        
-        button.order-btn { background: #4facfe; color: white; border: none; padding: 15px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; transition: 0.3s; }
+        button.order-btn { background: #4facfe; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; transition: 0.3s; }
         button.order-btn:hover { background: #008eff; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-<div class="sidebar">
+
+<div class="navbar">
     <h2>HORIZON WEB TECH</h2>
     
     <div class="nav-links">
         <a onclick="showSection('home')" id="nav-home" class="active">🏠 Dashboard</a>
         <a onclick="showSection('services')" id="nav-services">🛠 Services & Pay</a>
         <a onclick="showSection('orders')" id="nav-orders">📦 My Orders</a>
+        <div id="admin-link-area"></div> 
     </div>
-
-    <div id="admin-link-area"></div> 
 
     <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
    
-  <div class="main-content">
-        <div class="header">
-            <h1 id="welcome-message">በመጫን ላይ...</h1>
-        </div>
+<div class="main-content">
+    <div class="header">
+        <h1 id="welcome-message">በመጫን ላይ...</h1>
+    </div>
 
-        <div id="home-section" class="section active-section">
-            <div class="card">
-                <h3>እንኳን ደህና መጡ!</h3>
-                <p style="color: #bbb; margin-top: 10px;">ይህ የእርስዎ የግል ዳሽቦርድ ነው። አገልግሎቶችን ማዘዝ እና ሁኔታቸውን መከታተል ይችላሉ።</p>
-            </div>
-        </div>
-
-        <div id="services-section" class="section">
-            <div class="card">
-                <h3>አገልግሎት ይዘዙና ክፍያ ይፈጽሙ</h3>
-                <div class="bank-info">
-                    <p><strong>🏦 የባንክ አካውንቶች፡</strong></p>
-                    <p>ንግድ ባንክ (CBE): <span style="color: #4facfe;">1000094194478</span></p>
-                    <p>አቢሲኒያ (BOA): <span style="color: #4facfe;">83056193</span></p>
-                    <p>ቴሌብር (telebirr): <span style="color: #4facfe;">0911993521</span></p>
-                    <p>ስም፡ <strong>ሰይድ ፍሪው</strong></p>
-                </div>
-
-                <label>የአገልግሎት አይነት፡</label>
-                <select id="service-type">
-                    <option value="frontend development">frontend development - 80,000 ETB</option>
-                  <option value="backend development">backend development - 180,000 ETB</option>
-                   <option value="fullstack development">fullstack development - 250,000 ETB</option>
-                    <option value="Web Design">Web Design - 50,000 ETB</option>
-                   <option value="App Development">App Development - 100,000 ETB</option>
-                </select>
-
-                <label>የክፍያ ማረጋገጫ ቁጥር (Transaction ID):</label>
-                <input type="text" id="transaction-id" placeholder="የደረሰኝ ቁጥር እዚህ ያስገቡ...">
-
-                <label>ደረሰኝ (Screenshot) - ካለዎት፡</label>
-                <input type="file" id="payment-receipt" accept="image/*">
-
-                <label>ዝርዝር መረጃ፡</label>
-                <textarea id="order-details" rows="3" placeholder="ተጨማሪ ፍላጎት ካለዎት እዚህ ይጻፉ..."></textarea>
-                
-                <button class="order-btn" id="order-submit-btn" onclick="placeOrder()">ትዕዛዝ ላክ</button>
-            </div>
-        </div>
-
-        <div id="orders-section" class="section">
-            <div class="card">
-                <h3>📦 የእኔ ትዕዛዞች</h3>
-                <div id="orders-list" style="margin-top: 20px;">በመጫን ላይ...</div>
-            </div>
+    <div id="home-section" class="section active-section">
+        <div class="card">
+            <h3>እንኳን ደህና መጡ!</h3>
+            <p style="color: #bbb; margin-top: 10px;">ይህ የእርስዎ የግል ዳሽቦርድ ነው። አገልግሎቶችን ማዘዝ እና ሁኔታቸውን መከታተል ይችላሉ።</p>
         </div>
     </div>
 
-    <script>
-        // --- 1. Firebase Config (የራስህን እዚህ ተካ) ---
-       const firebaseConfig = {
-  apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
-  authDomain: "horizon-web-tech.firebaseapp.com",
-  projectId: "horizon-web-tech",
-  storageBucket: "horizon-web-tech.firebasestorage.app",
-  messagingSenderId: "472300718563",
-  appId: "1:472300718563:web:66e0aa4250fac73e3678d6",
-  measurementId: "G-RX10LYT9W1"
-};
-        firebase.initializeApp(firebaseConfig);
+    <div id="services-section" class="section">
+        <div class="card">
+            <h3>አገልግሎት ይዘዙና ክፍያ ይፈጽሙ</h3>
+            <div class="bank-info">
+                <p><strong>🏦 የባንክ አካውንቶች፡</strong></p>
+                <p>ንግድ ባንክ (CBE): <span style="color: #4facfe;">1000094194478</span></p>
+                <p>አቢሲኒያ (BOA): <span style="color: #4facfe;">83056193</span></p>
+                <p>ቴሌብር (telebirr): <span style="color: #4facfe;">0911993521</span></p>
+                <p>ስም፡ <strong>ሰይድ ፍሪው</strong></p>
+            </div>
 
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        const storage = firebase.storage();
+            <label>የአገልግሎት አይነት፡</label>
+            <select id="service-type">
+                <option value="frontend development">frontend development - 80,000 ETB</option>
+                <option value="backend development">backend development - 180,000 ETB</option>
+                <option value="fullstack development">fullstack development - 250,000 ETB</option>
+                <option value="Web Design">Web Design - 50,000 ETB</option>
+                <option value="App Development">App Development - 100,000 ETB</option>
+            </select>
 
-      // --- Auth Check & Sidebar Logic ---
-auth.onAuthStateChanged(user => {
-    if (user) {
-        // የተጠቃሚውን ስም ከFirestore ለማምጣት
-        db.collection('users').doc(user.uid).get().then(doc => {
-            if (doc.exists) {
-                document.getElementById('welcome-message').innerText = "እንኳን ደህና መጣህ፣ " + doc.data().fullName + "!";
-            }
-        });
+            <label>የክፍያ ማረጋገጫ ቁጥር (Transaction ID):</label>
+            <input type="text" id="transaction-id" placeholder="የደረሰኝ ቁጥር እዚህ ያስገቡ...">
 
-        // --- አዲሱ የአድሚን ቼክ እዚህ ጋር ነው ---
-        const ADMIN_EMAIL = "seidfirew2021@gmail.com"; // <--- እዚህ ጋር ያንተን ኢሜይል በትክክል አስገባ!
+            <label>ደረሰኝ (Screenshot) - ካለዎት፡</label>
+            <input type="file" id="payment-receipt" accept="image/*">
 
-        if (user.email === ADMIN_EMAIL) {
-            document.getElementById('admin-link-area').innerHTML = `
-                <a href="admin.html" style="background: #e74c3c; color: white; margin-top: 20px; border: none;">
-                    🛡 Admin Panel
-                </a>
-            `;
-        }
-    } else {
-        // ተጠቃሚው ካልገባ ወደ Login ገጽ ይመለሳል
-        window.location.href = "login.html";
-    }
-});
-        // --- 3. Navigation ---
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
-            document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-            document.getElementById(sectionId + '-section').classList.add('active-section');
-            document.getElementById('nav-' + sectionId).classList.add('active');
-            if (sectionId === 'orders') loadUserOrders();
-        }
+            <label>ዝርዝር መረጃ፡</label>
+            <textarea id="order-details" rows="3" placeholder="ተጨማሪ ፍላጎት ካለዎት እዚህ ይጻፉ..."></textarea>
+            
+            <button class="order-btn" id="order-submit-btn" onclick="placeOrder()">ትዕዛዝ ላክ</button>
+        </div>
+    </div>
 
-        // --- 4. Place Order Logic (ሁለቱንም አማራጭ የያዘ) ---
-        async function placeOrder() {
-            const user = auth.currentUser;
-            const receiptFile = document.getElementById('payment-receipt').files[0];
-            const transId = document.getElementById('transaction-id').value;
-            const btn = document.getElementById('order-submit-btn');
+    <div id="orders-section" class="section">
+        <div class="card">
+            <h3>📦 የእኔ ትዕዛዞች</h3>
+            <div id="orders-list" style="margin-top: 20px;">በመጫን ላይ...</div>
+        </div>
+    </div>
+</div>
 
-            // ቼክ ለማድረግ፡ ቢያንስ አንዱ መኖር አለበት
-            if (!receiptFile && transId === "") {
-                return alert("እባክዎ ደረሰኝ ይምረጡ ወይም የትራንዛክሽን ቁጥር ያስገቡ።");
-            }
-
-            btn.innerText = "በመላክ ላይ...⏳"; btn.disabled = true;
-
-            try {
-                let url = "";
-                // ፎቶ ካለ ብቻ ወደ Storage እንዲላክ
-                if (receiptFile) {
-                    try {
-                        const fileRef = storage.ref('receipts/' + user.uid + "_" + Date.now());
-                        const uploadTask = await fileRef.put(receiptFile);
-                        url = await uploadTask.ref.getDownloadURL();
-                    } catch (storageError) {
-                        console.log("Storage Error, but continuing with Trans ID...");
-                        // Storage እምቢ ካለ ፎቶውን ትተን በቁጥሩ ብቻ እንዲቀጥል
-                    }
-                }
-
-                await db.collection('orders').add({
-                    userId: user.uid,
-                    email: user.email,
-                    serviceType: document.getElementById('service-type').value,
-                    description: document.getElementById('order-details').value,
-                    receiptURL: url,
-                    transactionID: transId, // አዲሱ መረጃ እዚህ ተጨምሯል
-                    status: "Pending",
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                alert("ተልኳል!");
-                document.getElementById('transaction-id').value = "";
-                showSection('orders');
-            } catch (e) { 
-                alert("ስህተት አጋጥሟል! እባክዎ ኢንተርኔትዎን ያረጋግጡ።"); 
-            } finally { 
-                btn.innerText = "ትዕዛዝ ላክ"; 
-                btn.disabled = false; 
-            }
-        }
 <script>
+    // --- 1. Firebase Config ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+        authDomain: "horizon-web-tech.firebaseapp.com",
+        projectId: "horizon-web-tech",
+        storageBucket: "horizon-web-tech.firebasestorage.app",
+        messagingSenderId: "472300718563",
+        appId: "1:472300718563:web:66e0aa4250fac73e3678d6"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    // --- 2. Auth State & Admin Logic ---
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists) {
+                    document.getElementById('welcome-message').innerText = "እንኳን ደህና መጣህ፣ " + doc.data().fullName + "!";
+                }
+            });
+
+            const ADMIN_EMAIL = "seidfirew2021@gmail.com";
+            if (user.email === ADMIN_EMAIL) {
+                document.getElementById('admin-link-area').innerHTML = `
+                    <a href="admin.html" style="color: #ff4b2b; border: 1px solid #ff4b2b;">🛡 Admin</a>
+                `;
+            }
+        } else {
+            window.location.href = "login.html";
+        }
+    });
+
+    // --- 3. Navigation Logic ---
     function showSection(sectionId) {
-        // 1. Get all sections and hide them
-        const sections = document.querySelectorAll('.section');
-        sections.forEach(section => {
-            section.classList.remove('active-section');
-        });
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        
+        document.getElementById(sectionId + '-section').classList.add('active-section');
+        const activeNav = document.getElementById('nav-' + sectionId);
+        if(activeNav) activeNav.classList.add('active');
 
-        // 2. Show the section that was clicked
-        const activeSection = document.getElementById(sectionId + '-section');
-        if (activeSection) {
-            activeSection.classList.add('active-section');
+        if (sectionId === 'orders') loadUserOrders();
+    }
+
+    // --- 4. Order Logic ---
+    async function placeOrder() {
+        const user = auth.currentUser;
+        const receiptFile = document.getElementById('payment-receipt').files[0];
+        const transId = document.getElementById('transaction-id').value;
+        const btn = document.getElementById('order-submit-btn');
+
+        if (!receiptFile && transId === "") {
+            return alert("እባክዎ ደረሰኝ ይምረጡ ወይም የትራንዛክሽን ቁጥር ያስገቡ።");
         }
 
-        // 3. Update the Navigation Link styling
-        const navLinks = document.querySelectorAll('.sidebar a');
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-        });
+        btn.innerText = "በመላክ ላይ...⏳"; btn.disabled = true;
 
-        // Add 'active' class to the clicked link
-        const clickedLink = document.getElementById('nav-' + sectionId);
-        if (clickedLink) {
-            clickedLink.classList.add('active');
+        try {
+            let url = "";
+            if (receiptFile) {
+                const fileRef = storage.ref('receipts/' + user.uid + "_" + Date.now());
+                const uploadTask = await fileRef.put(receiptFile);
+                url = await uploadTask.ref.getDownloadURL();
+            }
+
+            await db.collection('orders').add({
+                userId: user.uid,
+                email: user.email,
+                serviceType: document.getElementById('service-type').value,
+                description: document.getElementById('order-details').value,
+                receiptURL: url,
+                transactionID: transId,
+                status: "Pending",
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            alert("ትዕዛዝዎ በተሳካ ሁኔታ ተልኳል!");
+            document.getElementById('transaction-id').value = "";
+            document.getElementById('order-details').value = "";
+            showSection('orders');
+        } catch (e) { 
+            alert("ስህተት አጋጥሟል! እባክዎ ኢንተርኔትዎን ያረጋግጡ።"); 
+        } finally { 
+            btn.innerText = "ትዕዛዝ ላክ"; 
+            btn.disabled = false; 
         }
     }
 
-    // Optional: Add a simple logout placeholder if you don't have one yet
-    function logout() {
-        if(confirm("Are you sure you want to logout?")) {
-            alert("Logging out...");
-            // window.location.href = 'login.html'; 
-        }
-    }
-</script>
-        // --- 5. Load Orders (Status Tracking) ---
-        function loadUserOrders() {
-            const user = auth.currentUser;
-            const list = document.getElementById('orders-list');
-            db.collection('orders').where('userId', '==', user.uid).orderBy('timestamp', 'desc').onSnapshot(snap => {
-                list.innerHTML = snap.empty ? "ምንም ትዕዛዝ የለም" : "";
-                snap.forEach(doc => {
-                    const d = doc.data();
-                    const s = d.status || "Pending";
-                    const sClass = s === "Pending" ? "status-pending" : s === "In Progress" ? "status-progress" : "status-completed";
-                    const sTxt = s === "Pending" ? "አዲስ" : s === "In Progress" ? "በሂደት" : "ተጠናቋል";
-                    
-                    list.innerHTML += `<div class="order-item">
-                        <div style="display:flex; justify-content:space-between">
+    // --- 5. Load User Orders ---
+    function loadUserOrders() {
+        const user = auth.currentUser;
+        const list = document.getElementById('orders-list');
+        db.collection('orders').where('userId', '==', user.uid).orderBy('timestamp', 'desc').onSnapshot(snap => {
+            list.innerHTML = snap.empty ? "ምንም ትዕዛዝ የለም" : "";
+            snap.forEach(doc => {
+                const d = doc.data();
+                const s = d.status || "Pending";
+                const sClass = s === "Pending" ? "status-pending" : s === "In Progress" ? "status-progress" : "status-completed";
+                const sTxt = s === "Pending" ? "አዲስ" : s === "In Progress" ? "በሂደት" : "ተጠናቋል";
+                
+                list.innerHTML += `
+                    <div class="order-item">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
                             <strong>${d.serviceType}</strong>
                             <span class="status-badge ${sClass}">${sTxt}</span>
                         </div>
                         <p style="font-size:13px; color:#aaa; margin-top:5px;">${d.description || 'ምንም ዝርዝር የለም'}</p>
-                        ${d.transactionID ? `<p style="font-size:11px; color:#4facfe;">ID: ${d.transactionID}</p>` : ''}
+                        ${d.transactionID ? `<p style="font-size:11px; color:#4facfe; margin-top:5px;">ID: ${d.transactionID}</p>` : ''}
                     </div>`;
-                });
             });
-        }
+        });
+    }
 
-        function logout() { auth.signOut().then(() => window.location.href = "index.html"); }
-    </script>
+    function logout() { auth.signOut().then(() => window.location.href = "index.html"); }
+</script>
 </body>
 </html>
-
-
-
-
-
-
