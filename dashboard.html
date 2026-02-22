@@ -15,8 +15,8 @@
         body { display: flex; background: #121212; color: white; min-height: 100vh; }
 
         /* Sidebar Design */
-        .sidebar { width: 260px; background: #1e1e1e; padding: 25px; display: flex; flex-direction: column; position: fixed; height: 100vh; border-right: 1px solid #333; }
-        .sidebar h2 { color: #4facfe; text-align: center; margin-bottom: 40px; font-size: 24px; letter-spacing: 1px; }
+        .sidebar { width: 100%; background: #1e1e1e; padding: 25px; display: flex; justify-content: space-betweenr; position: fixed;  border-right: 1px solid #333; }
+        .sidebar h2 { color: #4facfe; text-align: center; margin-bottom: 10px; font-size: 24px; letter-spacing: 1px; }
         .sidebar a { color: #bbb; text-decoration: none; padding: 15px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; }
         .sidebar a:hover, .sidebar a.active { background: #4facfe; color: white; transform: translateX(5px); }
         .logout-btn { margin-top: auto; background: #ff4b2b; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
@@ -49,7 +49,7 @@
 </head>
 <body>
 <div class="sidebar">
-    <h2>HORIZON</h2>
+    <h2>HORIZON WEB TECH</h2>
     <a onclick="showSection('home')" id="nav-home" class="active">🏠 Dashboard</a>
     <a onclick="showSection('services')" id="nav-services">🛠 Services & Pay</a>
     <a onclick="showSection('orders')" id="nav-orders">📦 My Orders</a>
@@ -241,5 +241,6 @@ auth.onAuthStateChanged(user => {
     </script>
 </body>
 </html>
+
 
 
