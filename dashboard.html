@@ -355,7 +355,13 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
     function logout() { auth.signOut().then(() => window.location.href = "index.html"); }
 </script>
+    function toggleMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('active');
+    console.log("Menu toggled!"); // ኮንሶል ላይ ሰርኪንግ ለመፈተሽ
+}
 </body>
 </html>
+
 
 
