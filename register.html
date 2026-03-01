@@ -3,54 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon Web Tech - Register</title>
+    <title>Horizon Web - Register</title>
     
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
-        :root {
-            --main-purple: #2d1b4e;
-            --light-purple: #4a2d7a;
-            --gold-accent: #ffcc00;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+             :root {
+  --cyber-gold: #FFD700;
+  --deep-gold: #FFC200;
+  --obsidian-black: #111111;
+  --pure-white: #FFFFFF;
+  --light-grey: #F5F5F5;
+  --dark-grey: #222222;
+  --pure-black: #000000;
+  --shadow-color: rgba(0,0,0,0.1);
+}
+
 
         body {
             margin: 0;
             font-family: 'Segoe UI', 'Ubuntu', sans-serif;
-            background: radial-gradient(circle at top right, var(--light-purple), var(--main-purple));
+            background:var(--pure-white);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: var(--cyber-gold);
             padding: 20px;
         }
-.back-btn {
-    position: absolute; /* ገጹ ላይ የፈለግነው ቦታ ለማስቀመጥ */
-    top: 20px;          /* ከላይ 20px ርቀት */
-    right: 20px;        /* በቀኝ በኩል 20px ርቀት */
-    background: rgba(79, 172, 254, 0.2); /* ፈዘዝ ያለ ሰማያዊ */
-    color: white;
-    border: 1px solid #4facfe;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 1000;      /* ከሌሎች ምስሎች በላይ እንዲታይ */
-}
-
-.back-btn:hover {
-    background: #4facfe; /* ሲነካ ደመቅ እንዲል */
-    color: #121212;
-}
 
         .register-box {
-            background: var(--glass);
+            background: var(--pure-black);
             backdrop-filter: blur(15px);
             padding: 40px;
             border-radius: 25px;
@@ -80,7 +65,7 @@
         .btn-gold {
             width: 100%;
             padding: 14px;
-            background: var(--gold-accent);
+            background: var(--deep-gold);
             border: none;
             border-radius: 12px;
             font-weight: bold;
@@ -88,17 +73,16 @@
             cursor: pointer;
             margin-top: 15px;
             transition: 0.3s;
-            color: #1a0f2e;
+            color: var(--pure-white);
         }
 
-        .btn-gold:hover { transform: scale(1.02); background: #e6b800; }
+        .btn-gold:hover { transform: scale(1.02); background: var(--deep-gold); }
 
         .footer-links { margin-top: 20px; font-size: 0.85rem; }
-        .footer-links a { color: var(--gold-accent); text-decoration: none; }
+        .footer-links a { color: var(--cyber-gold); text-decoration: none; }
     </style>
 </head>
 <body>
-<a href="index.html" class="back-btn">ወደ ዋናው ገጽ (Back)</a>
 
     <div class="register-box">
         <h2>Horizon Web Tech Register</h2>
@@ -168,6 +152,4 @@ const firebaseConfig = {
         });
     </script>
 </body>
-
 </html>
-

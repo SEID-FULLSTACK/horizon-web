@@ -32,7 +32,7 @@
         }
 
         .navbar h2 { 
-            color: #4facfe; 
+            color: #FFB700; 
             font-size: 20px; 
             letter-spacing: 1px;
         }
@@ -44,18 +44,18 @@
         }
 
         .nav-links a { 
-            color: #bbb; 
+            color: #FFB700; 
             text-decoration: none; 
             padding: 10px 18px; 
             border-radius: 8px; 
             cursor: pointer; 
             transition: 0.3s; 
-            font-size: 15px;
+            font-size: 24px;
             font-weight: 500;
         }
 
         .nav-links a:hover, .nav-links a.active { 
-            background: #4facfe; 
+            background: #FFB700; 
             color: white; 
         }
 
@@ -69,10 +69,10 @@
             width: 100%;
         }
 
-        .header h1 { font-size: 24px; margin-bottom: 20px; color: #4facfe; }
+        .header h1 { font-size: 24px; margin-bottom: 20px; color: #FFB700;background-color: black;width: 45%; }
 
         .logout-btn { 
-            background: #ff4b2b; 
+            background: #FFB700; 
             color: white; 
             border: none; 
             padding: 10px 20px; 
@@ -81,25 +81,24 @@
             font-weight: bold;
             transition: 0.3s;
         }
-        .logout-btn:hover { background: #e03a1d; }
+        .logout-btn:hover { background: #0088ff; }
 
         /* --- UI Components --- */
-        .card { background: #1e1e1e; padding: 30px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #333; animation: fadeIn 0.5s ease-in; }
-        .bank-info { background: #2d2d2d; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #4facfe; line-height: 1.8; }
+        .card { background: black; padding: 30px;width: 100%; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #333; animation: fadeIn 0.5s ease-in; }
+        .bank-info { background: black; padding: 20px; border-radius: 10px;color:#FFB700; margin-bottom: 20px; border-left: 5px solid #FFB700; line-height: 1.8; }
         
         .section { display: none; }
         .active-section { display: block; }
-
-        .order-item { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid #4facfe; }
+ .order-item { background: black; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid #FFB700; }
         .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .status-pending { background: #ffa500; color: black; }
-        .status-progress { background: #4facfe; color: white; }
-        .status-completed { background: #2ecc71; color: white; }
+        .status-progress { background: #FFB700; color: white; }
+        .status-completed { background: #FFB700; color: white; }
         
-label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; background: #252525; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
-        button.order-btn { background: #4facfe; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; transition: 0.3s; }
-        button.order-btn:hover { background: #008eff; }
+label { display: block; margin-top: 15px; color: #FFB700; font-size: 24px;width: 100%; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; background: black; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
+        button.order-btn { background: #FFB700; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; transition: 0.3s; }
+        button.order-btn:hover { background: #0088ff; }
 /* ሀምበርገር አይኮን ዲዛይን */
 .menu-icon {
     display: none; /* ኮምፒውተር ላይ አይታይም */
@@ -127,8 +126,8 @@ label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
         flex-direction: column;
         position: absolute;
         top: 75px;
-        left: 0;
-        width: 100%;
+        right: 0;
+        width: 30%;
         background: #1e1e1e;
         padding: 20px;
         border-bottom: 1px solid #333;
@@ -198,11 +197,11 @@ label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
 
             <label>የአገልግሎት አይነት፡</label>
             <select id="service-type">
-                <option value="frontend development">frontend development - 80,000 ETB</option>
-                <option value="backend development">backend development - 180,000 ETB</option>
-                <option value="fullstack development">fullstack development - 250,000 ETB</option>
-                <option value="Web Design">Web Design - 50,000 ETB</option>
-                <option value="App Development">App Development - 100,000 ETB</option>
+                <option value="frontend development">frontend development</option>
+                <option value="backend development">backend development</option>
+                <option value="fullstack development">fullstack development</option>
+                <option value="Web Design">Web Design</option>
+                <option value="App Development">App Development</option>
             </select>
 
             <label>የክፍያ ማረጋገጫ ቁጥር (Transaction ID):</label>
@@ -344,7 +343,7 @@ label { display: block; margin-top: 15px; color: #aaa; font-size: 14px; }
     }
 
     function logout() { auth.signOut().then(() => window.location.href = "index.html"); }
-</script>
+
  // --- Hamburger Menu Logic ---
 
 /**
@@ -382,9 +381,9 @@ allLinks.forEach(link => {
         }
     });
 });
+</script>
 </body>
 </html>
-
 
 
 

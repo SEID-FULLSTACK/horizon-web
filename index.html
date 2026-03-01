@@ -1,68 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizon Web Tech|Digital Solutions</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Web Tech</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
 <body>
- <input type="checkbox"id="lang-toggle"class="lang-checkbox">
-<header class="main-header">
-<div class="logo">
-<img src="web tech.png"alt="logo">
-<div class="logo-text">
-<span class="en">Horizon <span class="accent">Web Tech</span></span>
-        <span class="am">ሆራይዘን <span class="accent">ዌብ ቴክ</span></span>
-    </div>
-</div>
-<nav class="navbar">
-<input type="checkbox"id="menu-toggle" class=""menu-checkbox">
-<label for="menu-toggle"class="menu-icon"><i class="fas fa-bars"></i></label>
-<ul class="nav-links">
-<li><a href="#home"><span class="en">home</span><span class="am">መነሻ</span></a></li>
-<li><a href="#about us"><span class="en">about us</span><span class="am">ስለ እኛ</span></a></li>
-<li><a href="#services"><span class="en">services</span><span class="am">አገልግሎቶች</span></a></li>
-<li><a href="#portfolio"><span class="en">portfolio</span><span class="am">የስራ ስብስብ</span></a></li>
-<li><a href="#order now"><span class="en">order now</span><span class="am">አሁን ይዘዙ</span></a></li>
-<li><label for="lang-toggle"class="lang-btn"><span class="en">አማረኛ</span><span class="am">English</span>
-</label></li>
-</ul>
-</nav>
-</header>
-<section class="hero">
-    <div class="hero-section">
-        <div class="hero-container"> <div class="hero-content">
-                <h1>
-                    <span class="en">Digital Solutions Center</span>
-                    <span class="am">የዲጂታል መፍትሄዎች ማዕከል</span>
-                </h1> <h2>
-                    <span class="en">Grow your business with modern Technology</span>
-                    <span class="am">ንግድዎን በዘመናዊ ቴክኖሎጂ ያሳድጉ</span>
-                </h2>
 
-                <p>
-                    <span class="en">Expand your business reach by building fast, reliable websites that work perfectly on any phone.</span>
-                    <span class="am">ፈጣን፣ አስተማማኝ እና በማንኛውም ስልክ ላይ በትክክል የሚሰሩ ዌብሳይቶችን በመገንባት የንግድዎን ተደራሽነት እናሳድጋለን።</span>
-                </p>
-                
-                <div class="button-group">
+<header>
+  <h1>Horizon Web Tech</h1>
+  <nav>
+    <div class="toggle-btn" id="togglebtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul id="navMenu">
+    <li><a href="#home"><span class="en">Home</span><span class="am">መነሻ</span></a></li>
+            <li><a href="#services"><span class="en">Services</span><span class="am">አገልግሎቶቻችን</span></a></li>
+            <li><a href="#contact"><span class="en">Contact</span><span class="am">ያግኙን</span></a></li>
+           <li><a href="#about"><span class="en">About us</span><span class="am">ስለ እኛ</span></a></li>
+            <li>
+                <div id="language-switcher" class="lang-btn">
+                    <span class="en">አማርኛ</span>
+                    <span class="am">English</span>
+                </div>
+            </li>
+  </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section id="home">
+    <div class="hero-content">
+       <h1 class="main-title">
+<span class="en">DIGITAL SOLUTION CENTER</span>
+<span class="am">የዲጂታል መፍትሄዎች ማዕከል</span>
+</h1>
+        
+        <p class="hero-subtitle">
+            <span id="typed-text"></span>
+        </p>
+          <div class="button-group">
     <a href="login.html" class="btn btn-login">Login</a>
     <a href="register.html" class="btn btn-register">Register</a>
 </div>
-            </div> <div class="hero-visual">
-                <img src="image herosec.png" class="floating-img" alt="Tech Illustration">
-            </div>
-
-        </div> </div>
+    
+</div>
+    </div>
 </section>
-<section class="services-section">
+
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<!--service sections-->
+<section id="services" class="services-section">
     <div class="service-header">
-        <h2 class="en">Our Services</h2>
-        <h2 class="am">አገልግሎቶቻችን</h2>
-        <div class="underline"></div>
+     <h2 class="section-title" data-en="Our Services" data-am="አገልግሎቶቻችን">Services</h2>    
+<div class="underline"></div>
     </div>
 
     <div class="services-grid">
@@ -114,7 +109,34 @@
         </div>
     </div>
 </section>
-  <section id="contact" class="contact-section">
+<section id="about" class="about-section">
+
+  <h2 class="section-title" data-en="About" data-am="ስለ እኛ">About us</h2>
+  <p data-en="Horizon Web Tech..." data-am="Horizon Web Tech...">Horizon Web Tech builds innovative digital systems helping businesses grow globally.</p>
+  
+  <div class="about-grid"> <div class="info-box">
+      <h3 data-en="Our Mission" data-am="ተግባራችን">Our Mission</h3>
+      <p data-en="..." data-am="...">To empower businesses with reliable digital solutions.</p>
+    </div>
+
+    <div class="info-box">
+      <h3 data-en="Our Vision" data-am="ራዕያችን">Our Vision</h3>
+      <p data-en="..." data-am="...">To become a leading global technology partner.</p>
+    </div>
+
+    <div class="info-box">
+      <h3 data-en="Our Core Values" data-am="ዋና ዋጋችን">Our Core Values</h3>
+      <ul>
+        <li data-en="Innovation" data-am="አዳዲስ ሃሳቦች">Innovation</li>
+        <li data-en="Quality" data-am="ጥራት">Quality</li>
+        <li data-en="Integrity" data-am="ታማኝነት">Integrity</li>
+        <li data-en="Customer Satisfaction" data-am="የደንበኛ ደስታ">Customer Satisfaction</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+ <section id="contact" class="contact-section">
     <div class="container">
         <h2 class="section-title text-center">Get In <span class="cyan-text">Touch</span> / ያግኙን</h2>
         
@@ -125,130 +147,98 @@
                 <p class="amh-text">ስራዎን ለመጀመር ዝግጁ ነዎት? ከታች ያለውን ቁልፍ በመጫን በዋትስአፕ ያግኙን።</p>
             </div>
             
-            <div class="whatsapp-card">
-                <i class="fab fa-whatsapp"></i>
+            <div class="whatsApp-card">
+                <i class="fa-brands fa-whatsapp"></i>
                 <h4>Direct Chat / የቀጥታ ውይይት</h4>
                 <a href="https://wa.me/251911993521?text=Hello%20Horizon%20Web%20Tech,%20I%20would%20like%20to%20order%20a%20website." 
-                   target="_blank" class="whatsapp-btn">
+                   target="_blank" class="whatsApp-btn">
                    Message us on WhatsApp / በዋትስአፕ መልዕክት ይላኩ
                 </a>
             </div>
         </div>
     </div>
 </section>
-    <section id="about-me" style="padding: 80px 20px; background: #1a1a1a; color: white; border-top: 1px solid #333;">
-    <div style="max-width: 1100px; margin: 0 auto;">
-        <h2 style="color: #4facfe; text-align: center; font-size: 32px; margin-bottom: 50px;">ስለ እኔ | About Me</h2>
-        
-        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
-            
-            <div style="flex: 1; min-width: 300px; background: #252525; padding: 30px; border-radius: 15px; border-bottom: 4px solid #4facfe;">
-                <h3 style="color: #4facfe; border-bottom: 1px solid #444; padding-bottom: 10px;"></h3>
-                <p style="line-height: 1.8; color: #ccc; font-size: 16px; margin-top: 15px;">
-                    ሰላም! ስሜ <strong>ሰይድ ፍሬው</strong> ይባላል። በዘመናዊ የዌብሳይት ልማት (Full-stack Development) ላይ የምሰራ ባለሙያ ነኝ። 
-                    የተጠቃሚዎችን ፍላጎት መሰረት ያደረጉ፣ ፈጣን እና አስተማማኝ የሆኑ ዌብሳይቶችን እና ሲስተሞችን እገነባለሁ።
-                </p>
-                <p style="line-height: 1.8; color: #ccc; font-size: 16px;">
-                    በተለይ በ <strong>Frontend (HTML, CSS, JS)</strong> እና በ <strong>Backend (Firebase)</strong> ቴክኖሎጂዎች ላይ ጠንካራ ብቃት አለኝ። 
-                </p>
-            </div>
 
-            <div style="flex: 1; min-width: 300px; background: #252525; padding: 30px; border-radius: 15px; border-bottom: 4px solid #00f2fe;">
-                <h3 style="color: #00f2fe; border-bottom: 1px solid #444; padding-bottom: 10px;"></h3>
-                <p style="line-height: 1.8; color: #ccc; font-size: 16px; margin-top: 15px;">
-                    Hi! I'm <strong>Seid Firew</strong>, a dedicated <strong>Full-stack Developer</strong>. I specialize in building modern, responsive, and high-performance web applications that solve real-world problems.
-                </p>
-                <p style="line-height: 1.8; color: #ccc; font-size: 16px;">
-                    With expertise in <strong>Frontend (HTML, CSS, JS)</strong> and <strong>Backend (Firebase)</strong>, I bridge the gap between design and functionality to deliver seamless user experiences.
-                </p>
-            </div>
-
-        </div>
-
-        <div style="text-align: center; margin-top: 40px;">
-            <p style="color: #888; font-style: italic; margin-bottom: 20px;">Let's build something amazing together! | አብረን ድንቅ ስራ እንስራ!</p>
-            <a href="https://wa.me/251911993521" style="padding: 15px 35px; background: linear-gradient(45deg, #4facfe, #00f2fe); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);">contact Me / ያነጋግሩኝ</a>
-        </div>
-    </div>
-</section>
-
-<section id="about" class="about-section">
-    <div class="container">
-        <div class="about-flex">
-            <div class="about-text-side">
-                <h2 class="section-title">About <span class="cyan-text">Us</span> / ስለ <span class="cyan-text">እኛ</span></h2>
-                
-                <div class="description">
-                   <p class="eng-text">
-  Horizon Web Tech is a technology firm that builds <span class="cyan-text">modern, tech-driven</span> websites to help businesses grow <span class="cyan-text">globally</span> through digital solutions.
-</p>
-
-<p class="amh-text">
-  Horizon Web Tech በዘመናዊ የቴክኖሎጂ ውጤቶች የታገዙ ድህረ ገጾችን በመገንባት የንግድ ድርጅቶች ንግዳቸውን በዓለም አቀፍ ደረጃ <span class="cyan-text">በዲጂታል</span> እንዲያሳድጉ የሚረዳ የቴክኖሎጂ ተቋም ነው።
-</p>
-                </div>
-<div class="vision-box">
-                    <p><strong>Our Vision:</strong> To be a leading technology partner worldwide.</p>
-                    <p><strong>ራዕያችን፡</strong> በዓለም አቀፍ ደረጃ ተመራጩ የቴክኖሎጂ አጋር መሆን ነው።</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<section style="text-align: center; padding: 60px 20px; background: #1a1a1a; border-radius: 20px; margin: 40px auto; max-width: 800px; border: 1px solid #333;">
-    <h2 style="color: #4facfe; margin-bottom: 20px;">ዝግጁ ነዎት? ስራችንን አሁኑኑ ይጀምሩ!</h2>
-    <p style="color: #bbb; margin-bottom: 30px; font-size: 18px;">
-        ምርጥ የዌብሳይት እና የግራፊክስ ዲዛይን አገልግሎቶችን ለማግኘት መጀመሪያ ወደ አካውንትዎ ይግቡ።
-    </p>
-    
-    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-        <button onclick="location.href='login.html'" style="background: #4facfe; color: white; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 18px; transition: 0.3s;">
-            ይግቡ (Login)
-        </button>
-        <button onclick="location.href='register.html'" style="background: transparent; color: #4facfe; padding: 15px 40px; border: 2px solid #4facfe; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 18px; transition: 0.3s;">
-            ይመዝገቡ (Sign Up)
-        </button>
-    </div>
-</section>
 <footer class="main-footer">
-    <div class="footer-container">
-        <div class="footer-info">
-            <h3>HORIZON WEB TECH</h3>
-            <p>Developing digital solutions for the future.</p>
-        </div>
-        
-        <div class="footer-socials">
-            <h4>Follow Us</h4>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
-            </div>
-        </div>
+    <h3>Horizon <span class="accent">Web Tech</span></h3>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; 2026 Horizon Web Tech. All Rights Reserved.</p>
-            <a href="admin-login.html" style="color: #333; text-decoration: none; font-size: 12px;">Staff Login</a>
-    </div>
+<footer>
+  <p>© 2026 Horizon Web Tech | All Rights Reserved</p>
+ <a href="admin-login.html" style="color: #FFB700; text-decoration: none; font-weight: 600; font-size: 24px;">Staff Login</a>
 </footer>
 <script>
-  const menuIcon = document.querySelector('.menu-icon');
-    const navLinks = document.querySelector('.nav-links');
-menuIcon.onclick = () => {
-        navLinks.classList.toggle('active');
-    };
-  document.querySelectorAll('.nav-links li a').forEach(link => {
-        link.onclick = () => {
-            navLinks.classList.remove('active');
-        };
+document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. MOBILE MENU LOGIC ---
+    // Selectorውን አስተካክለነዋል (.toggle-btn)
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const navMenu = document.querySelector('#navMenu');
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // ክሊኩ ወደ document እንዳይሄድ
+            navMenu.classList.toggle('active');
+            toggleBtn.classList.toggle('open');
+        });
+    }
+
+    // ከሜኑ ውጭ ሲነካ ሜኑው እንዲዘጋ
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
+            navMenu.classList.remove('active');
+            toggleBtn.classList.remove('open');
+        }
     });
+    // --- 2. LANGUAGE SWITCHER LOGIC ---
+    const langBtn = document.getElementById('language-switcher');
+    const typingData = {
+        en: ["We transform your ideas into modern digital realities with high-performance web and mobile solutions.",
+        "Turning complex challenges into simple digital realities.",'Accelerating your business growth through technology.',
+'Crafting high-performance web and mobile solutions.',
+],
+        am: ["ሃሳብዎን ወደ ዘመናዊ ዲጂታል እውነታ እንቀይራለን። ከፍተኛ ጥራት ያላቸው የድረ-ገጽ እና የሞባይል መተግበሪያዎችን እናቀርባለን።",
+'ለተወሳሰቡ ችግሮች ቀለል ያሉ ዲጂታል መፍትሄዎች።','ቢዝነስዎን በዘመናዊ ቴክኖሎጂ እናሳድጋለን።','ጥራት ያላቸው ድረ-ገጾች እና የሞባይል አፕሊኬሽኖች።'
+],
+    };
+
+    let typedInstance;
+    function startTyping(textArray) {
+        if (typedInstance) typedInstance.destroy();
+        typedInstance = new Typed('#typed-text', {
+            strings: textArray,
+            typeSpeed: 60,
+            backSpeed: 30,
+           backdelay:600000,
+            loop: true
+        });
+    }
+
+    function applyLanguage(lang) {
+        // This targets EVERY element with .en or .am across the whole site
+        document.querySelectorAll('.en').forEach(el => el.style.display = (lang === 'en' ? 'inline-block' : 'none'));
+        document.querySelectorAll('.am').forEach(el => el.style.display = (lang === 'am' ? 'inline-block' : 'none'));
+        
+        startTyping(typingData[lang]);
+        localStorage.setItem('horizonPreferredLang', lang);
+        console.log("Language set to: " + lang);
+    }
+
+    if (langBtn) {
+        langBtn.addEventListener('click', () => {
+            const currentLang = localStorage.getItem('horizonPreferredLang') || 'en';
+            const nextLang = (currentLang === 'en') ? 'am' : 'en';
+            applyLanguage(nextLang);
+        });
+    }
+
+    // Load initial language
+    const initialLang = localStorage.getItem('horizonPreferredLang') || 'en';
+    applyLanguage(initialLang);
+});
+
 </script>
 </body>
 </html>
-
-
-
-
-
-
