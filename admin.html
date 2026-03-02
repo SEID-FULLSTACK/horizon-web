@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* Sidebar - Desktop */
+        /* Sidebar Design */
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
@@ -43,13 +43,10 @@
             text-align: center;
             font-weight: 600;
             font-size: 1.2rem;
-            letter-spacing: 1px;
             border-bottom: 1px solid var(--secondary);
         }
 
-        .nav-menu {
-            padding: 20px 0;
-        }
+        .nav-menu { padding: 20px 0; }
 
         .nav-item {
             padding: 14px 25px;
@@ -62,19 +59,10 @@
             text-decoration: none;
         }
 
-        .nav-item:hover {
-            background: var(--secondary);
-            color: white;
-            padding-left: 30px;
-        }
+        .nav-item:hover { background: var(--secondary); color: white; padding-left: 30px; }
+        .nav-item.active-link { background: var(--accent); color: white; border-left: 4px solid white; }
 
-        .nav-item.active-link {
-            background: var(--accent);
-            color: white;
-            border-left: 4px solid white;
-        }
-
-        /* Main Content */
+        /* Main Content Area */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -105,21 +93,7 @@
             color: var(--primary);
         }
 
-        /* Content Container */
-        .content-body {
-            padding: 30px;
-        }
-
-        /* Sections */
-        .section { display: none; }
-        .active { display: block; animation: slideUp 0.4s ease; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Overlay (Mobile Only) */
+        /* Overlay for Mobile */
         .overlay {
             display: none;
             position: fixed;
@@ -128,46 +102,25 @@
             z-index: 1000;
         }
 
-        /* ----- Responsive (Mobile) ----- */
+        /* Sections */
+        .section { display: none; padding: 30px; }
+        .active { display: block; animation: slideUp 0.4s ease; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+
+        /* Mobile Responsive */
         @media (max-width: 992px) {
-            .sidebar {
-                left: -260px;
-            }
-            .sidebar.open {
-                left: 0;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .overlay.show {
-                display: block;
-            }
+            .sidebar { left: -260px; }
+            .sidebar.open { left: 0; }
+            .main-content { margin-left: 0; }
+            .menu-toggle { display: block; }
+            .overlay.show { display: block; }
         }
-
-        /* Cards & UI Elements */
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
     </style>
 </head>
 <body>
@@ -177,73 +130,90 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">HORIZON ADMIN</div>
         <div class="nav-menu">
-            <div class="nav-item active-link" onclick="showSection('upload-section', this)">📁 Upload Project</div>
-            <div class="nav-item" onclick="showSection('new-orders', this)">📩 All Orders</div>
-            <div class="nav-item" onclick="showSection('pending-orders', this)">⏳ Pending</div>
-            <div class="nav-item" onclick="showSection('progress-orders', this)">⚙️ In Progress</div>
-            <div class="nav-item" onclick="showSection('completed-orders', this)">✅ Completed</div>
-            <div class="nav-item" onclick="showSection('update-menu', this)">🔄 Update Status</div>
-            <div class="nav-item" onclick="showSection('delete-menu', this)">🗑️ Delete Record</div>
+            <div class="nav-item active-link" onclick="showSection('upload-sec', this)">📁 Upload Project</div>
+            <div class="nav-item" onclick="showSection('all-orders', this)">📩 All Orders</div>
+            <div class="nav-item" onclick="showSection('pending-sec', this)">⏳ Pending</div>
+            <div class="nav-item" onclick="showSection('progress-sec', this)">⚙️ In Progress</div>
+            <div class="nav-item" onclick="showSection('completed-sec', this)">✅ Completed</div>
+            <div class="nav-item" onclick="showSection('update-sec', this)" style="background: #1e3a8a; margin-top: 10px;">🔄 Update Status</div>
+            <div class="nav-item" onclick="showSection('delete-sec', this)" style="background: #7f1d1d;">🗑️ Delete Records</div>
         </div>
     </div>
 
     <div class="main-content">
         <div class="top-bar">
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-            <h2 id="section-title" style="font-size: 1.2rem; color: var(--primary);">Upload Project</h2>
-            <div class="user-info" style="color: #64748b;">Admin Panel</div>
+            <h2 id="section-title" style="font-size: 1.2rem;">Dashboard</h2>
+            <button onclick="logout()" style="background: #64748b; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">ውጣ (Logout)</button>
         </div>
 
         <div class="content-body">
-            <div id="upload-section" class="section active">
+            <div id="upload-sec" class="section active">
                 <div class="card">
-                    <h3>አዲስ ፕሮጀክት መጫኛ</h3>
-                    <input type="text" id="projectTitle" placeholder="የፕሮጀክት ርዕስ" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:6px;">
-                    <textarea id="projectDesc" rows="4" placeholder="ዝርዝር መግለጫ" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:6px;"></textarea>
-                    <input type="file" id="projectImage" style="margin:10px 0;">
-                    <br>
-                    <button onclick="uploadProject()" class="btn btn-primary">ፕሮጀክቱን ጫን</button>
+                    <h3>Add New Project</h3>
+                    <input type="text" id="projectTitle" placeholder="Project Title" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
+                    <textarea id="projectDesc" rows="3" placeholder="Description" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:5px;"></textarea>
+                    <input type="file" id="projectImage">
+                    <button onclick="uploadProject()" style="background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px;">Upload</button>
                 </div>
             </div>
 
-            <div id="new-orders" class="section"><h3>All Customer Orders</h3><div id="ordersList"></div></div>
-            <div id="pending-orders" class="section"><h3>Pending Orders</h3><div id="list-pending"></div></div>
-            <div id="progress-orders" class="section"><h3>In Progress</h3><div id="list-progress"></div></div>
-            <div id="completed-orders" class="section"><h3>Completed Orders</h3><div id="list-completed"></div></div>
-            <div id="update-menu" class="section"><h3>Update Order Status</h3><div id="update-only-list"></div></div>
-            <div id="delete-menu" class="section"><h3>Delete Records</h3><div id="delete-only-list"></div></div>
+            <div id="all-orders" class="section"><h3>All Customer Orders</h3><div id="ordersList"></div></div>
+            <div id="pending-sec" class="section"><h3>Pending Orders</h3><div id="list-pending"></div></div>
+            <div id="progress-sec" class="section"><h3>In Progress</h3><div id="list-progress"></div></div>
+            <div id="completed-sec" class="section"><h3>Completed Orders</h3><div id="list-completed"></div></div>
+
+            <div id="update-sec" class="section">
+                <h3>Update Order Status</h3>
+                <p>የትዕዛዞችን ሁኔታ እዚህ ጋር በፍጥነት ይቀይሩ።</p>
+                <div id="update-only-list"></div>
+            </div>
+
+            <div id="delete-sec" class="section">
+                <h3>Delete Records</h3>
+                <p style="color: var(--danger);">ጥንቃቄ፦ የሰረዙት መረጃ ተመልሶ አይመጣም!</p>
+                <div id="delete-only-list"></div>
+            </div>
         </div>
     </div>
 
-    <script type="module" src="admin.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
     <script>
-        // Toggle Menu Function
+        // --- Firebase Config ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+        authDomain: "horizon-web-tech.firebaseapp.com",
+        projectId: "horizon-web-tech",
+        storageBucket: "horizon-web-tech.firebasestorage.app",
+        messagingSenderId: "472300718563",
+        appId: "1:472300718563:web:66e0aa4250fac73e3678d6"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // --- Toggle & Navigation Logic ---
         function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('show');
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
         }
 
-        // Section Switcher
         function showSection(id, element) {
-            // Hide all sections
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            // Show target section
             document.getElementById(id).classList.add('active');
-            
-            // Update Sidebar UI
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active-link'));
             element.classList.add('active-link');
+            document.getElementById('section-title').innerText = element.innerText;
+            if (window.innerWidth <= 992) toggleMenu();
+        }
 
-            // Update Header Title
-            document.getElementById('section-title').innerText = element.innerText.replace(/[^\w\s]/gi, '').trim();
-
-            // Close sidebar on mobile after clicking
-            if (window.innerWidth <= 992) {
-                toggleMenu();
-            }
+        function logout() {
+            firebase.auth().signOut().then(() => { window.location.href = "login.html"; });
         }
     </script>
+    
+    <script src="admin.js"></script>
 </body>
 </html>

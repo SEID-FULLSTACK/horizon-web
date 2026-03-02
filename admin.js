@@ -1,79 +1,69 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+// admin.js (ለ Firebase v8)
+function loadData() {
+    const listAll = document.getElementById('ordersList');
+    const listUp = document.getElementById('update-only-list');
+    const listDel = document.getElementById('delete-only-list');
 
-// Firebase Config
-const firebaseConfig = {
-   apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
-        authDomain: "horizon-web-tech.firebaseapp.com",
-        projectId: "horizon-web-tech",
-        storageBucket: "horizon-web-tech.firebasestorage.app",
-        messagingSenderId: "472300718563",
-        appId: "1:472300718563:web:66e0aa4250fac73e3678d6"
-};
+    db.collection("orders").get().then((querySnapshot) => {
+        listAll.innerHTML = "";
+        listUp.innerHTML = "";
+        listDel.innerHTML = "";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+        if (querySnapshot.empty) {
+            listAll.innerHTML = "<p>ምንም ትዕዛዝ የለም።</p>";
+            return;
+        }
 
-async function loadData() {
-    const containers = {
-        all: document.getElementById('ordersList'),
-        pending: document.getElementById('list-pending'),
-        progress: document.getElementById('list-progress'),
-        completed: document.getElementById('list-completed'),
-        update: document.getElementById('update-only-list'),
-        delete: document.getElementById('delete-only-list')
-    };
+        querySnapshot.forEach((doc) => {
+            const order = doc.data();
+            const id = doc.id;
 
-    // Loaders
-    Object.values(containers).forEach(c => { if(c) c.innerHTML = "<p>በመጫን ላይ...</p>"; });
-
-    try {
-        const snap = await getDocs(collection(db, "orders"));
-        Object.values(containers).forEach(c => { if(c) c.innerHTML = ""; });
-
-        snap.forEach(docSnap => {
-            const order = docSnap.data();
-            const id = docSnap.id;
-            const status = order.status || "Pending";
-
-            const card = `
-                <div style="background:white; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:10px;">
-                    <p><strong>${order.customerName}</strong> - ${order.serviceType}</p>
-                    <p style="font-size:0.9rem; color:#64748b;">Status: <span style="color:#3b82f6; font-weight:600;">${status}</span></p>
+            // ለ All Orders
+            listAll.innerHTML += `
+                <div class="card">
+                    <b>${order.Name}</b> - ${order.serviceType} <br>
+                    Status: <span style="color:blue">${order.status || 'Pending'}</span>
                 </div>`;
 
-            if(containers.all) containers.all.innerHTML += card;
-            if(status === "Pending" && containers.pending) containers.pending.innerHTML += card;
-            if(status === "In Progress" && containers.progress) containers.progress.innerHTML += card;
-            if(status === "Completed" && containers.completed) containers.completed.innerHTML += card;
+            // ለ Update Menu
+            listUp.innerHTML += `
+                <div class="card">
+                    <b>${order.customerName}</b>
+                    <select onchange="updateStatus('${id}', this.value)">
+                        <option value="">ሁኔታ ቀይር</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>`;
 
-            // Update Section
-            if(containers.update) {
-                containers.update.innerHTML += `
-                    <div style="background:white; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:10px;">
-                        <p><strong>${order.customerName}</strong></p>
-                        <select onchange="updateStatus('${id}', this.value)" style="width:100%; padding:8px; border-radius:5px;">
-                            <option value="">Status ቀይር (አሁን: ${status})</option>
-                            <option value="Pending">Pending</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>`;
-            }
-
-            // Delete Section
-            if(containers.delete) {
-                containers.delete.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; background:white; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:10px;">
-                        <span><strong>${order.customerName}</strong></span>
-                        <button onclick="deleteOrder('${id}')" style="background:#ef4444; color:white; border:none; padding:5px 12px; border-radius:5px; cursor:pointer;">ሰርዝ</button>
-                    </div>`;
-            }
+            // ለ Delete Menu
+            listDel.innerHTML += `
+                <div class="card" style="display:flex; justify-content:space-between;">
+                    <span>${order.customerName}</span>
+                    <button onclick="deleteOrder('${id}')" class="btn-delete">ሰርዝ</button>
+                </div>`;
         });
-    } catch (e) { console.error(e); }
+    }).catch((error) => {
+        console.error("Error getting documents: ", error);
+        alert("ዳታውን ማምጣት አልተቻለም፦ " + error.message);
+    });
 }
 
-window.updateStatus = async (id, s) => { if(s) { await updateDoc(doc(db, "orders", id), {status: s}); loadData(); } };
-window.deleteOrder = async (id) => { if(confirm("ይጥፋ?")) { await deleteDoc(doc(db, "orders", id)); loadData(); } };
+// Status Update ተግባር
+window.updateStatus = function(id, newStatus) {
+    if(!newStatus) return;
+    db.collection("orders").doc(id).update({ status: newStatus })
+    .then(() => { alert("ተቀይሯል!"); loadData(); });
+}
 
+// Delete ተግባር
+window.deleteOrder = function(id) {
+    if(confirm("ይጥፋ?")) {
+        db.collection("orders").doc(id).delete()
+        .then(() => { loadData(); });
+    }
+}
+
+// ገጹ ሲከፈት ዳታውን ጥራ
 loadData();
