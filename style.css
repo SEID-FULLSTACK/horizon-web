@@ -159,3 +159,51 @@ footer {background-color: #111;padding: 20px;text-align: center;color: #FFD700;f
 .whatsApp-btn { background-color: var(--whatsapp-green) !important; color: white !important; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 800;
     display: inline-block;transition: var(--transition);box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);}
 .whatsApp-btn:hover { background-color: #FFB700 !important; transform: scale(1.05); }
+/* FAQ Section Styles */
+.faq-container { max-width: 900px; margin: 60px auto;  padding: 20px;  font-family: 'Inter', sans-serif;}
+
+.faq-header { text-align: center;  margin-bottom: 40px;}
+
+.faq-header h2 { font-size: 2rem; color: #FFB700;  margin-bottom: 10px;}
+
+.faq-header p {color: var(--pure-black);}
+
+.faq-item { background: #ffffff; border: 3px solid var(--cyber-gold); border-radius: 10px; margin-bottom: 15px; overflow: hidden;
+    transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.09);}
+
+.faq-item[open] {
+    border-color: #007bff;  box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
+
+summary { padding: 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    color: #333;}
+
+summary::-webkit-details-marker { display: none;}
+
+/* ከጥያቄው ጎን ምልክት ለመጨመር */
+summary::after { content: '+'; font-size: 1.5rem; color: #007bff; transition: transform 0.3s ease;}
+
+details[open] summary::after {content: '-'; transform: rotate(180deg)}
+
+.faq-answer {  padding: 0 20px 20px 20px; color: #555; line-height: 1.6; animation: slideDown 0.4s ease-out;}
+
+/* አኒሜሽን */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to {  opacity: 1;  transform: translateY(0); }}
+.cta-section { background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 80px 20px; text-align: center;
+    margin-top: 40px;}
+
+.cta-content h2 {font-size: 2.5rem;margin-bottom: 20px;}
+
+.cta-content p {  font-size: 1.2rem;  margin-bottom: 30px;  opacity: 0.9;  max-width: 700px;  margin-left: auto;  margin-right: auto;}
+
+.cta-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;}
+
+.btn-primary { background-color: white; color: #007bff; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold;
+ transition: transform 0.3s ease;}
+
+.btn-primary:hover { transform: scale(1.05);}
+/* ለስልክ ስክሪን እንዲመች */
+@media (max-width: 600px) {
+    .cta-content h2 {
+        font-size: 1.8rem; }}
