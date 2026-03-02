@@ -1,19 +1,9 @@
-// 1. አስፈላጊ የሆኑ የFirebase አገልግሎቶችን ማስገባት (Import)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    getDocs, 
-    doc, 
-    updateDoc, 
-    deleteDoc, 
-    serverTimestamp 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// 2. የFirebase ማገናኛ (Configuration) - የራስህን መረጃ እዚህ ተካ
+// Firebase Config
 const firebaseConfig = {
-  apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+   apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
         authDomain: "horizon-web-tech.firebaseapp.com",
         projectId: "horizon-web-tech",
         storageBucket: "horizon-web-tech.firebasestorage.app",
@@ -21,117 +11,69 @@ const firebaseConfig = {
         appId: "1:472300718563:web:66e0aa4250fac73e3678d6"
 };
 
-// 3. Firebase-ን ማስነሳት (Initialize)
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- 4. CREATE: አዲስ ፕሮጀክት መጫኛ ---
-async function uploadProject() {
-    const title = document.getElementById('projectTitle').value;
-    const desc = document.getElementById('projectDesc').value;
-    const fileInput = document.getElementById('projectImage');
-
-    if (!title || !fileInput.files[0]) {
-        return alert("እባክህ ርዕስ እና ፎቶ አስገባ!");
-    }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(fileInput.files[0]);
-
-    reader.onload = async () => {
-        const base64Image = reader.result; // ፎቶው ወደ ጽሁፍ ተቀየረ
-
-        try {
-            await addDoc(collection(db, "projects"), {
-                title: title,
-                description: desc,
-                image: base64Image,
-                createdAt: serverTimestamp()
-            });
-            alert("ፕሮጀክቱ በተሳካ ሁኔታ ተጭኗል!");
-            document.getElementById('projectTitle').value = "";
-            document.getElementById('projectDesc').value = "";
-            displayProjects(); // ዝርዝሩን አድስ
-        } catch (e) {
-            console.error("Error adding document: ", e);
-            alert("ስህተት ተፈጥሯል፦ " + e.message);
-        }
+async function loadData() {
+    const containers = {
+        all: document.getElementById('ordersList'),
+        pending: document.getElementById('list-pending'),
+        progress: document.getElementById('list-progress'),
+        completed: document.getElementById('list-completed'),
+        update: document.getElementById('update-only-list'),
+        delete: document.getElementById('delete-only-list')
     };
-}
 
-// --- 5. READ: የተጫኑ ፕሮጀክቶችን ማሳያ ---
-async function displayProjects() {
-    const container = document.getElementById('adminProjectList');
-    container.innerHTML = "በመጫን ላይ..."; 
+    // Loaders
+    Object.values(containers).forEach(c => { if(c) c.innerHTML = "<p>በመጫን ላይ...</p>"; });
 
     try {
-        const querySnapshot = await getDocs(collection(db, "projects"));
-        container.innerHTML = ""; 
+        const snap = await getDocs(collection(db, "orders"));
+        Object.values(containers).forEach(c => { if(c) c.innerHTML = ""; });
 
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            container.innerHTML += `
-                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
-                    <img src="${data.image}" style="width: 150px; border-radius: 5px; display: block; margin-bottom: 10px;">
-                    <strong>ርዕስ፦</strong> ${data.title} <br>
-                    <strong>መግለጫ፦</strong> ${data.description || 'የለም'} <br><br>
-                    <button onclick="updateProject('${doc.id}')" style="background-color: #ffa500; border: none; padding: 5px 10px; color: white; cursor: pointer; border-radius: 3px;">Update Name</button>
-                    <button onclick="deleteProject('${doc.id}')" style="background-color: #ff4d4d; border: none; padding: 5px 10px; color: white; cursor: pointer; border-radius: 3px; margin-left: 5px;">Delete</button>
-                </div>
-            `;
+        snap.forEach(docSnap => {
+            const order = docSnap.data();
+            const id = docSnap.id;
+            const status = order.status || "Pending";
+
+            const card = `
+                <div style="background:white; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:10px;">
+                    <p><strong>${order.customerName}</strong> - ${order.serviceType}</p>
+                    <p style="font-size:0.9rem; color:#64748b;">Status: <span style="color:#3b82f6; font-weight:600;">${status}</span></p>
+                </div>`;
+
+            if(containers.all) containers.all.innerHTML += card;
+            if(status === "Pending" && containers.pending) containers.pending.innerHTML += card;
+            if(status === "In Progress" && containers.progress) containers.progress.innerHTML += card;
+            if(status === "Completed" && containers.completed) containers.completed.innerHTML += card;
+
+            // Update Section
+            if(containers.update) {
+                containers.update.innerHTML += `
+                    <div style="background:white; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <p><strong>${order.customerName}</strong></p>
+                        <select onchange="updateStatus('${id}', this.value)" style="width:100%; padding:8px; border-radius:5px;">
+                            <option value="">Status ቀይር (አሁን: ${status})</option>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>`;
+            }
+
+            // Delete Section
+            if(containers.delete) {
+                containers.delete.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; background:white; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <span><strong>${order.customerName}</strong></span>
+                        <button onclick="deleteOrder('${id}')" style="background:#ef4444; color:white; border:none; padding:5px 12px; border-radius:5px; cursor:pointer;">ሰርዝ</button>
+                    </div>`;
+            }
         });
-    } catch (e) {
-        container.innerHTML = "መረጃውን ማምጣት አልተቻለም።";
-        console.error("Error getting documents: ", e);
-    }
+    } catch (e) { console.error(e); }
 }
 
-// --- 6. DELETE: ፕሮጀክት ማጥፊያ ---
-async function deleteProject(id) {
-    if (confirm("እርግጠኛ ነህ ይህ ፕሮጀክት እንዲጠፋ ትፈልጋለህ?")) {
-        try {
-            await deleteDoc(doc(db, "projects", id));
-            alert("ተሰርዟል!");
-            displayProjects();
-        } catch (e) {
-            alert("ማጥፋት አልተቻለም፦ " + e.message);
-        }
-    }
-}
+window.updateStatus = async (id, s) => { if(s) { await updateDoc(doc(db, "orders", id), {status: s}); loadData(); } };
+window.deleteOrder = async (id) => { if(confirm("ይጥፋ?")) { await deleteDoc(doc(db, "orders", id)); loadData(); } };
 
-// --- 7. UPDATE: የፕሮጀክት ስም መቀየሪያ ---
-async function updateProject(id) {
-    const newName = prompt("አዲሱን የፕሮጀክት ስም ያስገቡ፦");
-    if (newName) {
-        try {
-            const projectRef = doc(db, "projects", id);
-            await updateDoc(projectRef, { title: newName });
-            alert("ተስተካክሏል!");
-            displayProjects();
-        } catch (e) {
-            alert("ማስተካከል አልተቻለም፦ " + e.message);
-        }
-    }
-}
-async function updateOrderStatus(orderId, newStatus) {
-    if (!newStatus) return;
-    try {
-        const orderRef = doc(db, "orders", orderId);
-        await updateDoc(orderRef, {
-            status: newStatus
-        });
-        alert("የመቆጣጠሪያ ሁኔታው ወደ " + newStatus + " ተቀይሯል!");
-        displayOrders(); // ገጹን አድስ
-    } catch (e) {
-        alert("ስህተት ተፈጥሯል፦ " + e.message);
-    }
-}
-window.updateOrderStatus = updateOrderStatus;
-// --- 8. ለ HTML እንዲታዩ ማድረግ (Global Scope) ---
-// type="module" ስለተጠቀምን እነዚህ መስመሮች ለ HTML onclick አስፈላጊ ናቸው
-window.uploadProject = uploadProject;
-window.deleteProject = deleteProject;
-window.updateProject = updateProject;
-
-// ገጹ ሲከፈት ዝርዝሩን እንዲያሳይ መጥራት
-displayProjects();
+loadData();
