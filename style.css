@@ -1,4 +1,9 @@
 /* Global Styles */
+
+/* ወይም ሁሉንም ለመሸፈን */
+* {
+  font-display: swap !important;
+}
 * {
     margin: 0;
     padding: 0;
