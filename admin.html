@@ -1,515 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Web Tech - Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Admin - New</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+        body { background: #f4f7f6; font-family: sans-serif; }
+        .login-container { height: 100vh; display: flex; align-items: center; justify-content: center; }
+        #dashboard { display: none; padding: 20px;color: #FFB700; }
+.dark-mode {
+    background-color: #1a1a1a !important;
+    color: #FFB700 !important;
+}
+.dark-mode .card, .dark-mode .table {
+    background-color: #2d2d2d !important;
+    color: #FFB700 !important;
+    border-color: #444;
+}
+ @media (max-width: 768px) {
+    /* በሞባይል ላይ የሰንጠረዡ ጽሑፍ ትንሽ እንዲል */
+    .table {
+        font-size: 12px;
+    }
+    
+    /* ቁልፎቹ (Buttons) እንዳይጨናነቁ */
+    .btn-sm {
+        padding: 0.25rem 0.4rem;
+        font-size: 10px;
+    }
 
-<!-- Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
-<style>
-:root{
-  --navy:#0b1f3a;
-  --electric:#007bff;
-  --light-bg:#f8f9fc;
+    /* ሰንጠረዡ በትንሹም ቢሆን እንዲተነፍስ */
+    .table-responsive {
+        border: 0;
+    }
 }
-
-body{
-  font-family: 'Inter', sans-serif;
-  background: var(--light-bg);
-  transition: 0.3s ease;
+@media (max-width: 768px) {
+    .table td, .table th {
+        white-space: nowrap; /* ጽሑፉ ወደ ታች እንዳይወርድ ይከለክላል */
+        padding: 8px 4px !important; /* ጠባብ ፓዲንግ */
+        font-size: 11px; /* ትንሽ የጽሑፍ መጠን */
+    }
 }
-  
-/* LOGIN */
-#loginPage{
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#ffffff,#eef2ff);
-}
-
-.login-card{
-  background:#fff;
-  padding:40px;
-  border-radius:16px;
-  width:400px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.08);
-  animation:fadeIn 0.6s ease;
-}
-
-.login-btn{
-  background:var(--electric);
-  border:none;
-  transition:0.3s;
-}
-.login-btn:hover{
-  background:#0056d2;
-  transform:translateY(-2px);
-}
-
-/* DASHBOARD */
-.wrapper{
-  display:none;
-}
-
-.sidebar{
-  width:250px;
-  background:var(--navy);
-  color:white;
-  height:100vh;
-  position:fixed;
-  transition:0.3s;
-}
-
-.sidebar.collapsed{
-  width:70px;
-}
-
-.sidebar a{
-  color:white;
-  text-decoration:none;
-  padding:12px 20px;
-  display:block;
-  transition:0.3s;
-}
-.sidebar a:hover{
-  background:rgba(255,255,255,0.1);
-}
-
-.content{
-  margin-left:250px;
-  padding:20px;
-  transition:0.3s;
-}
-.collapsed + .content{
-  margin-left:70px;
-}
-
-/* Cards */
-.card-custom{
-  border:none;
-  border-radius:14px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.05);
-  transition:0.3s;
-}
-.card-custom:hover{
-  transform:translateY(-5px);
-}
-
-/* Status Badges */
-.badge-pending{background:orange;}
-.badge-progress{background:#007bff;}
-.badge-complete{background:green;}
-
-/* Dark Mode */
-.dark-mode{
-  background:#111827;
-  color:white;
-}
-.dark-mode .card-custom{
-  background:#1f2937;
-  color:white;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-</style>
+    </style>
 </head>
-
 <body>
 
-<!-- LOGIN PAGE -->
-<div id="loginPage">
-  <div class="login-card text-center">
-    <h3 class="mb-4 fw-bold">Horizon Web Tech</h3>
-    <input type="email" class="form-control mb-3" placeholder="Admin Email">
-    <input type="password" class="form-control mb-3" placeholder="Password">
-    <div class="form-check text-start mb-3">
-      <input class="form-check-input" type="checkbox">
-      <label class="form-check-label">Remember Me</label>
+<div id="loginPage" class="login-container">
+    <div class="card p-4 shadow" style="width: 350px;">
+        <h4 class="text-center mb-4">Admin Login</h4>
+        <input type="email" id="adminEmail" class="form-control mb-3" placeholder="Email">
+        <input type="password" id="adminPass" class="form-control mb-3" placeholder="Password">
+        <button class="btn btn-primary w-100" id="loginBtn" onclick="login()">Login</button>
     </div>
-    <button class="btn login-btn w-100 text-white mb-2" onclick="login()">Login</button>
-    <a href="#" class="small">Forgot Password?</a>
-  </div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="wrapper d-flex">
-  <div class="sidebar p-3" id="sidebar">
-    <h5 class="text-center mb-4">Horizon Web Tech Admin Dashboard</h5>
-    <a href="#"><i class="fa fa-chart-line me-2"></i>Dashboard</a>
-    <a href="#"><i class="fa fa-box me-2"></i>Order Control</a>
-   <a href="#" data-bs-toggle="modal" data-bs-target="#uploadModal">
-  <i class="fa fa-upload me-2"></i>Upload Project
-</a>
-    <a href="#"><i class="fa fa-newspaper me-2"></i>Post News</a>
-    <a href="#"><i class="fa fa-moon me-2"></i>Dark Mode</a>
-  </div>
-<div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content card-custom">
-      <div class="modal-header border-0">
-        <h5 class="modal-title fw-bold">Upload New Project</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label small fw-bold">Project Name</label>
-          <input type="text" id="projName" class="form-control" placeholder="e.g. E-commerce App">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small fw-bold">Client Name</label>
-          <input type="text" id="projClient" class="form-control" placeholder="e.g. Jane Smith">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small fw-bold">Project Link (URL)</label>
-          <input type="url" id="projLink" class="form-control" placeholder="https://github.com/...">
-        </div>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary px-4" onclick="addProject()">Post Project</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <div class="content flex-fill">
-    <nav class="d-flex justify-content-between align-items-center mb-4">
-      <button class="btn btn-outline-primary" onclick="toggleSidebar()">
-        <i class="fa fa-bars"></i>
-      </button>
-      <div>
-        <span class="me-3">Admin</span>
-        <button class="btn btn-danger btn-sm" onclick="logout()">Logout</button>
-      </div>
+<div id="dashboard">
+    <nav class="navbar navbar-dark bg-dark mb-4 px-3">
+        <span class="navbar-brand">Horizon Web Tech Admin</span>
+        <button class="btn btn-danger btn-sm" onclick="location.reload()">Logout</button>
     </nav>
-
-    <!-- Dashboard Cards -->
-    <div class="col-md-3">
-  <div class="card card-custom p-3">
-    <h6>Pending</h6>
-    <h3 class="text-warning" id="count-pending">15</h3>
-  </div>
+<div class="form-check form-switch text-white">
+    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+    <label class="form-check-label">Dark Mode</label>
 </div>
-<div class="col-md-3">
-  <div class="card card-custom p-3">
-    <h6>In Progress</h6>
-    <h3 class="text-primary" id="count-progress">40</h3>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="card card-custom p-3">
-    <h6>Completed</h6>
-    <h3 class="text-success" id="count-complete">65</h3>
-  </div>
-</div>
-
-    <!-- Orders Table -->
-    <div class="card card-custom mt-5 p-4">
-      <h5 class="mb-3">Pending Orders</h5>
-      <table class="table">
-        <thead>
-      <tr id="${projectId}">
-    <td>${randomID}</td>
-    <td>${client}</td>
-    <td><a href="${link}" target="_blank">${name}</a></td>
-    <td>
-      <select disabled class="form-select form-select-sm status-dropdown" 
-              onchange="updateStatusColor(this, '${projectId}')">
-        <option value="pending">Pending</option>
-        <option value="progress" selected>In Progress</option>
-        <option value="complete">Complete</option>
-      </select>
-    </td>
-    <td>
-      <button class="btn btn-sm btn-primary" onclick="enableUpdate(this, '${projectId}')">Update</button>
-      <button class="btn btn-sm btn-danger" onclick="this.closest('tr').remove()">Delete</button>
-    </td>
-  </tr>
-       
-        </tbody>
-      </table>
+<div class="card p-3 mb-4 shadow-sm">
+    <h6>Upload New Project</h6>
+    <div class="d-flex gap-2">
+        <input type="text" id="projName" class="form-control" placeholder="Project Name">
+        <input type="url" id="projLink" class="form-control" placeholder="GitHub/Live Link">
+        <button class="btn btn-success" onclick="uploadProject()">Upload</button>
     </div>
-
-    <!-- Chart -->
-    <div class="card card-custom mt-4 p-4">
-      <canvas id="myChart"></canvas>
-    </div>
-
-  </div>
+</div>
+  <div class="table-responsive">
+    <table class="table table-hover mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Transaction ID</th>
+              <th>Client Email</th>
+                <th>Service</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody">
+            </tbody>
+    </table>
+</div> 
 </div>
 
 
 <script type="module">
-  // 1. Imports (Using CDN for single HTML file)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-check.js";
-
-  // Your Firebase Configuration
-  const firebaseConfig = {
-   apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
         authDomain: "horizon-web-tech.firebaseapp.com",
 databaseURL: "https://horizon-web-tech-default-rtdb.firebaseio.com/",
         projectId: "horizon-web-tech",
         storageBucket: "horizon-web-tech.firebasestorage.app",
         messagingSenderId: "472300718563",
         appId: "1:472300718563:web:66e0aa4250fac73e3678d6"
-  };
+    };
 
-  // 2. Initialize Firebase
-self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-  const app = initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
-  // 3. Initialize App Check (Paste your PUBLIC Site Key here)
-  const appCheck = initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider('6LfwlYMsAAAAANh0pzLkSKG4VOiLKaXai78wZwF-'), 
-    isTokenAutoRefreshEnabled: true 
-  });
+    // 2. Login Function
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    const email = document.getElementById('adminEmail').value;
+    const pass = document.getElementById('adminPass').value;
 
- // 3. THE FIX: Define it as window.login
-  window.login = function() {
-    console.log("Login button clicked!");
-    
-    // Your login logic
-    const email = document.querySelector('input[type="email"]').value;
-    if(email) {
-       document.getElementById("loginPage").style.display = "none";
-       document.querySelector(".wrapper").style.display = "flex";
-    } else {
-       alert("Please enter your admin email.");
+    try {
+        // 1. መጀመሪያ በ Auth ማረጋገጥ
+        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        const userEmail = userCredential.user.email;
+
+        // 2. በ Firestore 'admins' ውስጥ መኖሩን ማረጋገጥ
+        const adminDoc = await getDoc(doc(db, "admins", userEmail));
+
+        if (adminDoc.exists() && adminDoc.data().role === "admin") {
+            // አድሚን ከሆነ ብቻ ገጹን አሳይ
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadData(); 
+        } else {
+            // አድሚን ካልሆነ መልሰህ አስወጣው
+            await auth.signOut();
+            alert("ይቅርታ፣ ይህ ገጽ ለአስተዳዳሪዎች ብቻ የተፈቀደ ነው!");
+        }
+    } catch (err) {
+        alert("ስህተት፡ " + err.message);
     }
-  };
+});
+    // 3. Update Status (Global ለማድረግ ለ window እንሰጠዋለን)
+    window.updateStatus = async (id, newStatus) => {
+        try {
+            const orderRef = doc(db, "orders", id);
+            await updateDoc(orderRef, { status: newStatus });
+            alert("ሁኔታው ተቀይሯል!");
+        } catch (err) {
+            console.error("Update error:", err);
+        }
+    };
 
-  window.logout = function() {
-    location.reload();
-  };
 
-  window.toggleSidebar = function() {
-    document.getElementById("sidebar").classList.toggle("collapsed");
-  };
+    // 4. Delete Order (Global ለማድረግ ለ window እንሰጠዋለን)
+    window.deleteOrder = async (id) => {
+        if (confirm("ይህንን ትዕዛዝ መሰረዝ ትፈልጋለህ?")) {
+            try {
+                await deleteDoc(doc(db, "orders", id));
+                alert("ትዕዛዙ ተሰርዟል!");
+            } catch (err) {
+                console.error("Delete error:", err);
+            }
+        }
+    };
 
-// --- 1. Authentication & Session ---
-function login() {
-  const email = document.querySelector('input[type="email"]').value;
-  const pass = document.querySelector('input[type="password"]').value;
+    // 5. Load Data Function
+    function loadData() {
+        onSnapshot(collection(db, "orders"), (snapshot) => {
+            const tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = "";
 
-  if (email && pass) {
-    document.getElementById("loginPage").style.display = "none";
-    document.querySelector(".wrapper").style.display = "flex";
-    initChart(); // Initialize chart only after dashboard is visible
-  } else {
-    alert("Please enter both email and password.");
-  }
-}
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const row = `
+                    <tr>
+                        <td>#${data.transactionID || doc.id.substring(0,5)}</td>
+                        <td>${data.email || 'No Email'}</td>
+                        <td>${data.serviceType || 'General'}</td>
+                        <td>
+                            <select class="form-select form-select-sm" onchange="updateStatus('${doc.id}', this.value)">
+                                <option value="Pending" ${data.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="In Progress" ${data.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="Completed" ${data.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deleteOrder('${doc.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+        });
+    }
 
-function logout() {
-  if (confirm("Are you sure you want to logout?")) {
-    location.reload();
-  }
-}
-
-// --- 2. Sidebar & UI Controls ---
-function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  sidebar.classList.toggle("collapsed");
-}
-
-// Dark Mode Toggle Logic
-document.querySelectorAll('.fa-moon')[0].parentElement.addEventListener('click', (e) => {
-  e.preventDefault();
-  document.body.classList.toggle('dark-mode');
-  
-  // Optional: Swap icon from Moon to Sun
-  const icon = e.target.closest('a').querySelector('i');
-  icon.classList.toggle('fa-moon');
-  icon.classList.toggle('fa-sun');
+document.getElementById('darkModeToggle').addEventListener('change', function() {
+    document.body.classList.toggle('dark-mode');
 });
 
 
-
-  // Create Date & Random ID
-  const today = new Date().toLocaleDateString('en-GB', { 
-    day: '2-digit', month: 'short', year: 'numeric' 
-  });
-  const randomID = "#" + Math.floor(100 + Math.random() * 900);
-
-  // Build New Row
-  const newRow = `
-    <tr>
-      <td>${randomID}</td>
-      <td>${client}</td>
-      <td><a href="${link}" target="_blank" class="text-decoration-none">${name} <i class="fa fa-external-link-alt ms-1 small"></i></a></td>
-      <td>${today}</td>
-      <td><span class="badge badge-progress">In Progress</span></td>
-      <td>
-        <button class="btn btn-sm btn-primary">Update</button>
-        <button class="btn btn-sm btn-danger" onclick="this.closest('tr').remove()">Delete</button>
-      </td>
-    </tr>
-  `;
-
-  // Prepend to Table
-  tableBody.insertAdjacentHTML('afterbegin', newRow);
-
-  // Clear Inputs & Close Modal
-  document.getElementById('projName').value = '';
-  document.getElementById('projClient').value = '';
-  document.getElementById('projLink').value = '';
-  
-  const modalElement = document.getElementById('uploadModal');
-  const modalInstance = bootstrap.Modal.getInstance(modalElement);
-  modalInstance.hide();
-
-   // --- DATABASE OPERATIONS ---
-    function addProject() {
-        const name = document.getElementById('projName').value;
-        const client = document.getElementById('projClient').value;
-        const link = document.getElementById('projLink').value;
-
-        if(!name || !client || !link) return alert("All fields required");
-
-        db.ref('projects').push({
-            id: "#" + Math.floor(100 + Math.random() * 900),
-            name, client, link,
-            date: new Date().toLocaleDateString('en-GB'),
-            status: 'pending'
-        }).then(() => {
-            bootstrap.Modal.getInstance(document.getElementById('uploadModal')).hide();
-        });
-    }
-window.updateStatusColor = function(selectElement) {
-  const status = selectElement.value;
-  
-  // Reset classes first
-  selectElement.classList.remove('border-warning', 'border-primary', 'border-success');
-
-  // Apply new border color based on choice
-  if (status === 'pending') {
-    selectElement.classList.add('border-warning');
-  } else if (status === 'progress') {
-    selectElement.classList.add('border-primary');
-  } else if (status === 'complete') {
-    selectElement.classList.add('border-success');
-  }
-  
-  console.log("Status updated to:", status);
-};
-window.enableUpdate = function(button, projectId) {
-  const row = button.closest('tr');
-  const dropdown = row.querySelector('.status-dropdown');
-  
-  // Check if we are currently editing or saving
-  const isEditing = dropdown.disabled;
-
-  if (isEditing) {
-    // START EDITING: Enable the dropdown and change button text
-    dropdown.disabled = false;
-    button.innerText = "Save";
-    button.classList.replace('btn-primary', 'btn-success');
-  } else {
-    // SAVE CHANGES: Lock the dropdown and sync with Firebase
-    dropdown.disabled = true;
-    button.innerText = "Update";
-    button.classList.replace('btn-success', 'btn-primary');
-    
-    // Call the sync function we discussed earlier
-    window.updateStatusColor(dropdown, projectId);
-    alert("Project status updated successfully!");
-  }
-};
-
-    function loadData() {
-        db.ref('projects').on('value', (snapshot) => {
-            const tbody = document.getElementById('projectTableBody');
-            tbody.innerHTML = "";
-            let data = snapshot.val();
-            let counts = { total: 0, pending: 0, complete: 0 };
-
-            for (let id in data) {
-                let p = data[id];
-                counts.total++;
-                counts[p.status]++;
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${p.id}</td>
-                        <td>${p.client}</td>
-                        <td><a href="${p.link}" target="_blank">${p.name}</a></td>
-                        <td>${p.date}</td>
-                        <td><span class="badge badge-${p.status}">${p.status}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary" onclick="updateStatus('${id}', '${p.status}')">Update</button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="deleteProject('${id}')"><i class="fa fa-trash"></i></button>
-                        </td>
-                    </tr>`;
-            }
-            updateStats(counts);
-        });
-    }
-    function updateStats(c) {
-        document.getElementById('stat-total').innerText = c.total;
-        document.getElementById('stat-pending').innerText = c.pending;
-        document.getElementById('stat-complete').innerText = c.complete;
-    }
-  // Show the dropdown menu
-// This function handles the "Update" button click
-function updateStatus(key, currentStatus) {
-  // 1. We cycle through the statuses: pending -> progress -> complete -> pending
-  let nextStatus = 'progress';
-  if (currentStatus === 'progress') nextStatus = 'complete';
-  if (currentStatus === 'complete') nextStatus = 'pending';
-
-  // 2. We update ONLY the database. 
-  // Firebase will automatically trigger the table to refresh with the new badge.
-  db.ref('projects/' + key).update({
-    status: nextStatus
-  }).catch(error => {
-    console.error("Firebase Update Error:", error);
-  });
-}
-
-function finalizeStatus(selectElement) {
-  const status = selectElement.value;
-  const statusCell = selectElement.parentElement;
-  
-  // 1. Update the Badge UI
-  let badgeHTML = '';
-  if (status === 'pending') badgeHTML = '<span class="badge badge-pending">Pending</span>';
-  if (status === 'progress') badgeHTML = '<span class="badge badge-progress">In Progress</span>';
-  if (status === 'complete') badgeHTML = '<span class="badge badge-complete" style="background:green; color:white;">Completed</span>';
-  
-  statusCell.innerHTML = badgeHTML;
-
-  // 2. Update Dashboard Numbers (Live!)
-  if (status === 'complete') {
-    const comp = document.getElementById('count-complete');
-    comp.innerText = parseInt(comp.innerText) + 1;
-    
-    // Decrease pending since it's now done
-    const pend = document.getElementById('count-pending');
-    pend.innerText = Math.max(0, parseInt(pend.innerText) - 1);
-  }
-}
-
 </script>
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
