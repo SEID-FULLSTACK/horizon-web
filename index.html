@@ -6,9 +6,7 @@
 
 <title>Horizon Web Tech</title>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="style.css"></noscript>
-<!-- Google tag (gtag.js) -->
+><link rel="stylesheet" href="style.css">
 <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-RX10LYT9W1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -34,6 +32,7 @@
             <li><a href="#services"><span class="en">Services</span><span class="am">አገልግሎቶቻችን</span></a></li>
             <li><a href="#contact"><span class="en">Contact</span><span class="am">ያግኙን</span></a></li>
            <li><a href="#about"><span class="en">About us</span><span class="am">ስለ እኛ</span></a></li>
+            <li><a href="#portfolio"><span class="en">Portfolio</span><span class="am">የተሰሩ ስራዎች</span></a></li>
             <li>
                 <div id="language-switcher" class="lang-btn">
                     <span class="en">አማርኛ</span>
@@ -95,7 +94,7 @@
             <p class="en">End-to-end web solutions combining seamless UI with powerful performance.</p>
             <p class="am">የፊት እና የጀርባ ክፍሎችን በማቀናጀት የተሟላ የዌብሳይት መፍትሄዎችን መስጠት።</p>
         </div>
-        <div class="service-box">
+  <div class="service-box">
             <div class="service-icon"><i class="fas fa-code"></i></div>
             <h3 class="en">Web Design</h3>
             <h3 class="am">የድረ-ገጽ ዝግጅት</h3>
@@ -146,7 +145,12 @@
     </div>
   </div>
 </section>
-
+<section id="portfolio" class="portfolio-section">
+    <h2>የተሰሩ ስራዎች (Projects)</h2>
+    <div id="project-display" class="projects-grid">
+        <p>በመጫን ላይ...</p> 
+    </div>
+</section>
  <section id="contact" class="contact-section">
     <div class="container">
         <h2 class="section-title text-center">Get In <span class="cyan-text">Touch</span> / ያግኙን</h2>
@@ -306,8 +310,55 @@ document.addEventListener('DOMContentLoaded', () => {
     applyLanguage(initialLang);
 });
 
-</script>
 
+
+
+  
+</script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 1. የ Firebase መረጃ (ይህ የግድ ያስፈልጋል)
+    const firebaseConfig = {
+          apiKey: "AIzaSyDV-7voUWNUNN8Q7OXt0Ml4EwoL-z8qx0s",
+        authDomain: "horizon-web-tech.firebaseapp.com",
+databaseURL: "https://horizon-web-tech-default-rtdb.firebaseio.com/",
+        projectId: "horizon-web-tech",
+        storageBucket: "horizon-web-tech.firebasestorage.app",
+        messagingSenderId: "472300718563",
+        appId: "1:472300718563:web:66e0aa4250fac73e3678d6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 2. ዳታው የሚታይበትን HTML ክፍል ማዘጋጀት
+    const projectDisplay = document.getElementById('project-display');
+
+    // 3. ዳታውን ከ Firestore መሳብ (በጊዜ ቅደም ተከተል እንዲመጣ)
+    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+
+    onSnapshot(q, (snapshot) => {
+        projectDisplay.innerHTML = ""; // ገጹን መጀመሪያ ባዶ ማድረግ
+
+        snapshot.forEach((doc) => {
+            const project = doc.data();
+            
+            // በሰጠኸኝ የፊልድ ስሞች መሠረት ኮዱን ማዘጋጀት
+            projectDisplay.innerHTML += `
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h3>${project.projectName}</h3> 
+                         <a href="${project.projectLink}" target="_blank" class="btn-view">CLICK HERE</a>
+                        
+                        
+                    </div>
+                </div>
+            `;
+        });
+    });
+</script>
 </body>
 
 </html>
